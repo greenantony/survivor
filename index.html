@@ -94,8 +94,12 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <span class="chip"><span class="avail yes">YES</span> available</span>
 <span class="chip"><span class="avail no">NO</span> burned</span>
 </div>
-<div class="legendTitle">Save vs leverage score</div>
-<div class="sub" style="margin-top:0">Score = implied win% + 0.10 × (100 − alive avail%). Higher = safer and more scarce (safety dominates).</div>
+<div class="legendTitle">Pick Value Score</div>
+<div class="sub" style="margin-top:0">
+  <b>Pick Value Score</b> = implied win% + <b>w</b> × (100 − alive avail%).
+  Here <b>w = 0.10</b> (light leverage weight): a 10-point drop in alive availability adds +1.0 to the score.
+  Higher = safer, with a small bonus for being more scarce.
+</div>
 <section class="cardSection"><div class="swipeHint">Mobile view: cards.</div><div class="cards">
 <div class="card">
 <div class="cardTitle"><span class="day3">DAY3</span> <span class="favTeam">MICH</span> vs SLU</div>
