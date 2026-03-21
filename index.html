@@ -1,5 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!doctype html><html lang="en"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Survivor Heatmap — Day 3 & Day 4 (Alive=148)</title>
 <style>
 :root { --bg:#0b0f14; --text:#e5e7eb; --muted:#b6c0cf; --grid: rgba(255,255,255,.10); --panel: rgba(255,255,255,.03); }
@@ -11,7 +10,6 @@ h1 { font-size: 18px; margin: 0 0 6px; }
 .chip { display:inline-flex; align-items:center; gap:8px; }
 .swatch { width:14px; height:14px; border-radius:3px; border:1px solid var(--grid); }
 
-/* Shared tokens */
 .badge { font-variant-numeric: tabular-nums; font-weight:900; border-radius:999px; padding: 3px 10px; display:inline-block; border:1px solid var(--grid); }
 .ml { font-variant-numeric: tabular-nums; font-weight: 900; color:#0b0f14; text-shadow: 0 1px 0 rgba(255,255,255,.35); border-radius:6px; padding: 3px 6px; display:inline-block; min-width: 54px; text-align:center; }
 .pct { font-variant-numeric: tabular-nums; color:#0b0f14; font-weight:900; border-radius:6px; padding: 3px 6px; display:inline-block; border:1px solid rgba(0,0,0,.25); min-width: 64px; text-align:center; }
@@ -21,16 +19,16 @@ h1 { font-size: 18px; margin: 0 0 6px; }
 .no  { background: rgba(239,68,68,.16); color: #fecaca; border: 1px solid rgba(239,68,68,.40); }
 .day3 { color:#93c5fd; font-weight:800; }
 .day4 { color:#86efac; font-weight:800; }
-.fav { font-weight: 900; letter-spacing:.2px; }
 
-/* Desktop/table view */
+/* Favorite highlight */
+.favTeam { font-weight: 950; letter-spacing:.2px; padding: 2px 8px; border-radius: 10px; background: rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.14); }
+
 .tableSection { display:block; }
 .cardSection { display:none; }
 
 .swipeHint { color: var(--muted); font-size: 12px; margin: 6px 0 8px; }
 .tablewrap { overflow:auto; -webkit-overflow-scrolling: touch; border-radius: 12px; border:1px solid var(--grid); background: var(--panel); }
 
-/* Force width so horizontal scroll works nicely */
 table { width: max-content; min-width: 980px; border-collapse: collapse; }
 
 thead th { position: sticky; top: 0; background: rgba(17,24,39,.96); backdrop-filter: blur(8px); z-index: 3; }
@@ -39,24 +37,21 @@ th, td { border-bottom:1px solid var(--grid); padding: 9px 10px; font-size: 13px
 
 tbody tr:hover { background: rgba(255,255,255,.04); }
 
-/* Sticky first columns (Day/Time/Favorite) */
 th.sticky, td.sticky { position: sticky; left: 0; background: rgba(11,15,20,.96); z-index: 2; }
 th.sticky2, td.sticky2 { position: sticky; left: 74px; background: rgba(11,15,20,.96); z-index: 2; }
 th.sticky3, td.sticky3 { position: sticky; left: 168px; background: rgba(11,15,20,.96); z-index: 2; }
 
-/* Ensure sticky headers are above sticky cells */
 thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 
-/* Mobile card view */
+/* Mobile cards */
 .cards { display:flex; flex-direction: column; gap: 10px; }
 .card { border:1px solid var(--grid); border-radius: 14px; background: var(--panel); padding: 12px; }
-.cardTop { display:flex; justify-content: space-between; gap: 10px; align-items: baseline; }
 .cardTitle { font-size: 15px; font-weight: 900; }
 .cardMeta { font-size: 12px; color: var(--muted); }
 .cardRow { display:flex; flex-wrap:wrap; gap: 8px; margin-top: 10px; align-items:center; }
-.grid5 { display:grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 6px; margin-top: 10px; }
-.grid5 .name { font-size: 11px; color: var(--muted); text-align:center; }
-.grid5 .val { text-align:center; }
+.entryGrid { display:grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 6px; margin-top: 10px; }
+.entryGrid .name { font-size: 11px; color: var(--muted); text-align:center; }
+.entryGrid .val { text-align:center; }
 
 @media (max-width: 720px) {
   .wrap { margin: 14px auto; }
@@ -67,8 +62,10 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 }
 
 @media (max-width: 420px) {
-  .badge, .pct, .ml, .count, .avail { transform: translateZ(0); }
-  .grid5 { grid-template-columns: repeat(3, minmax(0,1fr)); }
+  .cardTitle { font-size: 14px; }
+  .entryGrid .name { font-size: 10px; }
+  .avail { min-width: 34px; padding: 3px 4px; }
+  .favTeam { padding: 2px 6px; }
 }
 </style></head><body><div class="wrap">
 <h1>Survivor Heatmap — Day 3 & Day 4 favorites (alive entries only)</h1>
@@ -81,589 +78,540 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
   <span class="chip"><span class="avail no">NO</span> burned</span>
 </div>
 <section class="cardSection">
-<div class="swipeHint">Mobile view: cards (no horizontal scrolling needed).</div>
+<div class="swipeHint">Mobile view: cards.</div>
 <div class="cards">
 <div class="card">
-<div class="cardTop">
-<div><div class="cardTitle"><span class="day3">DAY3</span> MICH vs SLU</div>
-<div class="cardMeta">12:10 PM • alive avail 146 (98.6%)</div></div>
-</div>
+<div class="cardTitle"><span class="day3">DAY3</span> <span class="favTeam">MICH</span> vs SLU</div>
+<div class="cardMeta">12:10 PM • alive avail 146 (98.6%)</div>
 <div class="cardRow">
 <span class="ml" style="background:rgb(114,146,255)">ML -900</span>
 <span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">Implied 90.0%</span>
 <span class="badge" style="background:rgba(34,197,94,.14); color:#bbf7d0; border:1px solid rgba(34,197,94,.30)">COMMON</span>
 <span class="pct" style="background:rgb(74,253,70)">98.6%</span>
 </div>
-<div class="grid5">
+<div class="entryGrid">
 <div class="name">DanSal</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">AdnyB</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg321</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg3212</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">SEGAL</div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
 <div class="val"><span class="avail yes">YES</span></div>
 </div>
 </div>
 <div class="card">
-<div class="cardTop">
-<div><div class="cardTitle"><span class="day3">DAY3</span> DUKE vs TCU</div>
-<div class="cardMeta">5:15 PM • alive avail 146 (98.6%)</div></div>
-</div>
+<div class="cardTitle"><span class="day3">DAY3</span> <span class="favTeam">DUKE</span> vs TCU</div>
+<div class="cardMeta">5:15 PM • alive avail 146 (98.6%)</div>
 <div class="cardRow">
 <span class="ml" style="background:rgb(140,166,255)">ML -750</span>
 <span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">Implied 88.2%</span>
 <span class="badge" style="background:rgba(34,197,94,.14); color:#bbf7d0; border:1px solid rgba(34,197,94,.30)">COMMON</span>
 <span class="pct" style="background:rgb(74,253,70)">98.6%</span>
 </div>
-<div class="grid5">
+<div class="entryGrid">
 <div class="name">DanSal</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">AdnyB</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg321</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg3212</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">SEGAL</div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
 <div class="val"><span class="avail yes">YES</span></div>
 </div>
 </div>
 <div class="card">
-<div class="cardTop">
-<div><div class="cardTitle"><span class="day3">DAY3</span> ARK vs HPU</div>
-<div class="cardMeta">9:45 PM • alive avail 85 (57.4%)</div></div>
-</div>
+<div class="cardTitle"><span class="day3">DAY3</span> <span class="favTeam">ARK</span> vs HPU</div>
+<div class="cardMeta">9:45 PM • alive avail 85 (57.4%)</div>
 <div class="cardRow">
 <span class="ml" style="background:rgb(148,172,255)">ML -700</span>
 <span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">Implied 87.5%</span>
 <span class="badge" style="background:rgba(251,191,36,.18); color:#fde68a; border:1px solid rgba(251,191,36,.35)">SCARCE</span>
 <span class="pct" style="background:rgb(255,172,70)">57.4%</span>
 </div>
-<div class="grid5">
+<div class="entryGrid">
 <div class="name">DanSal</div>
-<div class="val"><span class="avail no">NO</span></div>
 <div class="name">AdnyB</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg321</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg3212</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">SEGAL</div>
+<div class="val"><span class="avail no">NO</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
 <div class="val"><span class="avail no">NO</span></div>
 </div>
 </div>
 <div class="card">
-<div class="cardTop">
-<div><div class="cardTitle"><span class="day3">DAY3</span> ILL vs VCU</div>
-<div class="cardMeta">7:50 PM • alive avail 119 (80.4%)</div></div>
-</div>
+<div class="cardTitle"><span class="day3">DAY3</span> <span class="favTeam">ILL</span> vs VCU</div>
+<div class="cardMeta">7:50 PM • alive avail 119 (80.4%)</div>
 <div class="cardRow">
 <span class="ml" style="background:rgb(169,188,255)">ML -575</span>
 <span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">Implied 85.2%</span>
 <span class="badge" style="background:rgba(147,197,253,.14); color:#bfdbfe; border:1px solid rgba(147,197,253,.30)">MID</span>
 <span class="pct" style="background:rgb(189,226,70)">80.4%</span>
 </div>
-<div class="grid5">
+<div class="entryGrid">
 <div class="name">DanSal</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">AdnyB</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg321</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg3212</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">SEGAL</div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
 <div class="val"><span class="avail yes">YES</span></div>
 </div>
 </div>
 <div class="card">
-<div class="cardTop">
-<div><div class="cardTitle"><span class="day3">DAY3</span> HOU vs ML</div>
-<div class="cardMeta">6:10 PM • alive avail 136 (91.9%)</div></div>
-</div>
+<div class="cardTitle"><span class="day3">DAY3</span> <span class="favTeam">HOU</span> vs ML</div>
+<div class="cardMeta">6:10 PM • alive avail 136 (91.9%)</div>
 <div class="cardRow">
 <span class="ml" style="background:rgb(176,193,255)">ML -535</span>
 <span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">Implied 84.3%</span>
 <span class="badge" style="background:rgba(34,197,94,.14); color:#bbf7d0; border:1px solid rgba(34,197,94,.30)">COMMON</span>
 <span class="pct" style="background:rgb(116,243,70)">91.9%</span>
 </div>
-<div class="grid5">
+<div class="entryGrid">
 <div class="name">DanSal</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">AdnyB</div>
-<div class="val"><span class="avail no">NO</span></div>
 <div class="name">jdg321</div>
-<div class="val"><span class="avail no">NO</span></div>
 <div class="name">jdg3212</div>
-<div class="val"><span class="avail no">NO</span></div>
 <div class="name">SEGAL</div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail no">NO</span></div>
+<div class="val"><span class="avail no">NO</span></div>
+<div class="val"><span class="avail no">NO</span></div>
 <div class="val"><span class="avail yes">YES</span></div>
 </div>
 </div>
 <div class="card">
-<div class="cardTop">
-<div><div class="cardTitle"><span class="day3">DAY3</span> NEV vs LIB</div>
-<div class="cardMeta">9:00 PM • alive avail 148 (100.0%)</div></div>
-</div>
+<div class="cardTitle"><span class="day3">DAY3</span> <span class="favTeam">NEV</span> vs LIB</div>
+<div class="cardMeta">9:00 PM • alive avail 148 (100.0%)</div>
 <div class="cardRow">
 <span class="ml" style="background:rgb(209,219,255)">ML -340</span>
 <span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">Implied 77.3%</span>
 <span class="badge" style="background:rgba(34,197,94,.14); color:#bbf7d0; border:1px solid rgba(34,197,94,.30)">COMMON</span>
 <span class="pct" style="background:rgb(65,255,70)">100.0%</span>
 </div>
-<div class="grid5">
+<div class="entryGrid">
 <div class="name">DanSal</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">AdnyB</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg321</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg3212</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">SEGAL</div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
 <div class="val"><span class="avail yes">YES</span></div>
 </div>
 </div>
 <div class="card">
-<div class="cardTop">
-<div><div class="cardTitle"><span class="day3">DAY3</span> GONZ vs TEX</div>
-<div class="cardMeta">7:10 PM • alive avail 85 (57.4%)</div></div>
-</div>
+<div class="cardTitle"><span class="day3">DAY3</span> <span class="favTeam">GONZ</span> vs TEX</div>
+<div class="cardMeta">7:10 PM • alive avail 85 (57.4%)</div>
 <div class="cardRow">
 <span class="ml" style="background:rgb(225,231,255)">ML -250</span>
 <span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">Implied 71.4%</span>
 <span class="badge" style="background:rgba(251,191,36,.18); color:#fde68a; border:1px solid rgba(251,191,36,.35)">SCARCE</span>
 <span class="pct" style="background:rgb(255,172,70)">57.4%</span>
 </div>
-<div class="grid5">
+<div class="entryGrid">
 <div class="name">DanSal</div>
-<div class="val"><span class="avail no">NO</span></div>
 <div class="name">AdnyB</div>
-<div class="val"><span class="avail no">NO</span></div>
 <div class="name">jdg321</div>
-<div class="val"><span class="avail no">NO</span></div>
 <div class="name">jdg3212</div>
-<div class="val"><span class="avail no">NO</span></div>
 <div class="name">SEGAL</div>
+<div class="val"><span class="avail no">NO</span></div>
+<div class="val"><span class="avail no">NO</span></div>
+<div class="val"><span class="avail no">NO</span></div>
+<div class="val"><span class="avail no">NO</span></div>
 <div class="val"><span class="avail no">NO</span></div>
 </div>
 </div>
 <div class="card">
-<div class="cardTop">
-<div><div class="cardTitle"><span class="day3">DAY3</span> MSU vs LOU</div>
-<div class="cardMeta">2:45 PM • alive avail 113 (76.4%)</div></div>
-</div>
+<div class="cardTitle"><span class="day3">DAY3</span> <span class="favTeam">MSU</span> vs LOU</div>
+<div class="cardMeta">2:45 PM • alive avail 113 (76.4%)</div>
 <div class="cardRow">
 <span class="ml" style="background:rgb(234,238,255)">ML -192</span>
 <span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">Implied 65.8%</span>
 <span class="badge" style="background:rgba(147,197,253,.14); color:#bfdbfe; border:1px solid rgba(147,197,253,.30)">MID</span>
 <span class="pct" style="background:rgb(214,220,70)">76.4%</span>
 </div>
-<div class="grid5">
+<div class="entryGrid">
 <div class="name">DanSal</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">AdnyB</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg321</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg3212</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">SEGAL</div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
 <div class="val"><span class="avail yes">YES</span></div>
 </div>
 </div>
 <div class="card">
-<div class="cardTop">
-<div><div class="cardTitle"><span class="day3">DAY3</span> DAY vs UNCW</div>
-<div class="cardMeta">7:00 PM • alive avail 148 (100.0%)</div></div>
-</div>
+<div class="cardTitle"><span class="day3">DAY3</span> <span class="favTeam">DAY</span> vs UNCW</div>
+<div class="cardMeta">7:00 PM • alive avail 148 (100.0%)</div>
 <div class="cardRow">
 <span class="ml" style="background:rgb(243,245,255)">ML -142</span>
 <span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">Implied 58.7%</span>
 <span class="badge" style="background:rgba(34,197,94,.14); color:#bbf7d0; border:1px solid rgba(34,197,94,.30)">COMMON</span>
 <span class="pct" style="background:rgb(65,255,70)">100.0%</span>
 </div>
-<div class="grid5">
+<div class="entryGrid">
 <div class="name">DanSal</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">AdnyB</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg321</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg3212</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">SEGAL</div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
 <div class="val"><span class="avail yes">YES</span></div>
 </div>
 </div>
 <div class="card">
-<div class="cardTop">
-<div><div class="cardTitle"><span class="day3">DAY3</span> VAN vs NEB</div>
-<div class="cardMeta">8:45 PM • alive avail 148 (100.0%)</div></div>
-</div>
+<div class="cardTitle"><span class="day3">DAY3</span> <span class="favTeam">VAN</span> vs NEB</div>
+<div class="cardMeta">8:45 PM • alive avail 148 (100.0%)</div>
 <div class="cardRow">
 <span class="ml" style="background:rgb(246,247,255)">ML -125</span>
 <span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">Implied 55.6%</span>
 <span class="badge" style="background:rgba(34,197,94,.14); color:#bbf7d0; border:1px solid rgba(34,197,94,.30)">COMMON</span>
 <span class="pct" style="background:rgb(65,255,70)">100.0%</span>
 </div>
-<div class="grid5">
+<div class="entryGrid">
 <div class="name">DanSal</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">AdnyB</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg321</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg3212</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">SEGAL</div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
 <div class="val"><span class="avail yes">YES</span></div>
 </div>
 </div>
 <div class="card">
-<div class="cardTop">
-<div><div class="cardTitle"><span class="day4">DAY4</span> AUB vs SEA</div>
-<div class="cardMeta">6:30 PM • alive avail 148 (100.0%)</div></div>
-</div>
+<div class="cardTitle"><span class="day4">DAY4</span> <span class="favTeam">AUB</span> vs SEA</div>
+<div class="cardMeta">6:30 PM • alive avail 148 (100.0%)</div>
 <div class="cardRow">
 <span class="ml" style="background:rgb(80,120,255)">ML -1100</span>
 <span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">Implied 91.7%</span>
 <span class="badge" style="background:rgba(34,197,94,.14); color:#bbf7d0; border:1px solid rgba(34,197,94,.30)">COMMON</span>
 <span class="pct" style="background:rgb(65,255,70)">100.0%</span>
 </div>
-<div class="grid5">
+<div class="entryGrid">
 <div class="name">DanSal</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">AdnyB</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg321</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg3212</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">SEGAL</div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
 <div class="val"><span class="avail yes">YES</span></div>
 </div>
 </div>
 <div class="card">
-<div class="cardTop">
-<div><div class="cardTitle"><span class="day4">DAY4</span> ARIZ vs USU</div>
-<div class="cardMeta">7:50 PM • alive avail 146 (98.6%)</div></div>
-</div>
+<div class="cardTitle"><span class="day4">DAY4</span> <span class="favTeam">ARIZ</span> vs USU</div>
+<div class="cardMeta">7:50 PM • alive avail 146 (98.6%)</div>
 <div class="cardRow">
 <span class="ml" style="background:rgb(131,159,255)">ML -800</span>
 <span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">Implied 88.9%</span>
 <span class="badge" style="background:rgba(34,197,94,.14); color:#bbf7d0; border:1px solid rgba(34,197,94,.30)">COMMON</span>
 <span class="pct" style="background:rgb(74,253,70)">98.6%</span>
 </div>
-<div class="grid5">
+<div class="entryGrid">
 <div class="name">DanSal</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">AdnyB</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg321</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg3212</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">SEGAL</div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
 <div class="val"><span class="avail yes">YES</span></div>
 </div>
 </div>
 <div class="card">
-<div class="cardTop">
-<div><div class="cardTitle"><span class="day4">DAY4</span> FLA vs IOWA</div>
-<div class="cardMeta">7:10 PM • alive avail 145 (98.0%)</div></div>
-</div>
+<div class="cardTitle"><span class="day4">DAY4</span> <span class="favTeam">FLA</span> vs IOWA</div>
+<div class="cardMeta">7:10 PM • alive avail 145 (98.0%)</div>
 <div class="cardRow">
 <span class="ml" style="background:rgb(165,185,255)">ML -600</span>
 <span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">Implied 85.7%</span>
 <span class="badge" style="background:rgba(34,197,94,.14); color:#bbf7d0; border:1px solid rgba(34,197,94,.30)">COMMON</span>
 <span class="pct" style="background:rgb(78,252,70)">98.0%</span>
 </div>
-<div class="grid5">
+<div class="entryGrid">
 <div class="name">DanSal</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">AdnyB</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg321</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg3212</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">SEGAL</div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
 <div class="val"><span class="avail yes">YES</span></div>
 </div>
 </div>
 <div class="card">
-<div class="cardTop">
-<div><div class="cardTitle"><span class="day4">DAY4</span> UNM vs GW</div>
-<div class="cardMeta">8:00 PM • alive avail 148 (100.0%)</div></div>
-</div>
+<div class="cardTitle"><span class="day4">DAY4</span> <span class="favTeam">UNM</span> vs GW</div>
+<div class="cardMeta">8:00 PM • alive avail 148 (100.0%)</div>
 <div class="cardRow">
 <span class="ml" style="background:rgb(208,218,255)">ML -345</span>
 <span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">Implied 77.5%</span>
 <span class="badge" style="background:rgba(34,197,94,.14); color:#bbf7d0; border:1px solid rgba(34,197,94,.30)">COMMON</span>
 <span class="pct" style="background:rgb(65,255,70)">100.0%</span>
 </div>
-<div class="grid5">
+<div class="entryGrid">
 <div class="name">DanSal</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">AdnyB</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg321</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg3212</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">SEGAL</div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
 <div class="val"><span class="avail yes">YES</span></div>
 </div>
 </div>
 <div class="card">
-<div class="cardTop">
-<div><div class="cardTitle"><span class="day4">DAY4</span> PUR vs MIA</div>
-<div class="cardMeta">12:10 PM • alive avail 148 (100.0%)</div></div>
-</div>
+<div class="cardTitle"><span class="day4">DAY4</span> <span class="favTeam">PUR</span> vs MIA</div>
+<div class="cardMeta">12:10 PM • alive avail 148 (100.0%)</div>
 <div class="cardRow">
 <span class="ml" style="background:rgb(212,221,255)">ML -325</span>
 <span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">Implied 76.5%</span>
 <span class="badge" style="background:rgba(34,197,94,.14); color:#bbf7d0; border:1px solid rgba(34,197,94,.30)">COMMON</span>
 <span class="pct" style="background:rgb(65,255,70)">100.0%</span>
 </div>
-<div class="grid5">
+<div class="entryGrid">
 <div class="name">DanSal</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">AdnyB</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg321</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg3212</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">SEGAL</div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
 <div class="val"><span class="avail yes">YES</span></div>
 </div>
 </div>
 <div class="card">
-<div class="cardTop">
-<div><div class="cardTitle"><span class="day4">DAY4</span> WAKE vs ILST</div>
-<div class="cardMeta">4:30 PM • alive avail 148 (100.0%)</div></div>
-</div>
+<div class="cardTitle"><span class="day4">DAY4</span> <span class="favTeam">WAKE</span> vs ILST</div>
+<div class="cardMeta">4:30 PM • alive avail 148 (100.0%)</div>
 <div class="cardRow">
 <span class="ml" style="background:rgb(212,221,255)">ML -325</span>
 <span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">Implied 76.5%</span>
 <span class="badge" style="background:rgba(34,197,94,.14); color:#bbf7d0; border:1px solid rgba(34,197,94,.30)">COMMON</span>
 <span class="pct" style="background:rgb(65,255,70)">100.0%</span>
 </div>
-<div class="grid5">
+<div class="entryGrid">
 <div class="name">DanSal</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">AdnyB</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg321</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg3212</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">SEGAL</div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
 <div class="val"><span class="avail yes">YES</span></div>
 </div>
 </div>
 <div class="card">
-<div class="cardTop">
-<div><div class="cardTitle"><span class="day4">DAY4</span> CAL vs JOES</div>
-<div class="cardMeta">9:00 PM • alive avail 148 (100.0%)</div></div>
-</div>
+<div class="cardTitle"><span class="day4">DAY4</span> <span class="favTeam">CAL</span> vs JOES</div>
+<div class="cardMeta">9:00 PM • alive avail 148 (100.0%)</div>
 <div class="cardRow">
 <span class="ml" style="background:rgb(225,231,255)">ML -245</span>
 <span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">Implied 71.0%</span>
 <span class="badge" style="background:rgba(34,197,94,.14); color:#bbf7d0; border:1px solid rgba(34,197,94,.30)">COMMON</span>
 <span class="pct" style="background:rgb(65,255,70)">100.0%</span>
 </div>
-<div class="grid5">
+<div class="entryGrid">
 <div class="name">DanSal</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">AdnyB</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg321</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg3212</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">SEGAL</div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
 <div class="val"><span class="avail yes">YES</span></div>
 </div>
 </div>
 <div class="card">
-<div class="cardTop">
-<div><div class="cardTitle"><span class="day4">DAY4</span> ISU vs UK</div>
-<div class="cardMeta">2:45 PM • alive avail 135 (91.2%)</div></div>
-</div>
+<div class="cardTitle"><span class="day4">DAY4</span> <span class="favTeam">ISU</span> vs UK</div>
+<div class="cardMeta">2:45 PM • alive avail 135 (91.2%)</div>
 <div class="cardRow">
 <span class="ml" style="background:rgb(230,235,255)">ML -218</span>
 <span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">Implied 68.6%</span>
 <span class="badge" style="background:rgba(34,197,94,.14); color:#bbf7d0; border:1px solid rgba(34,197,94,.30)">COMMON</span>
 <span class="pct" style="background:rgb(121,242,70)">91.2%</span>
 </div>
-<div class="grid5">
+<div class="entryGrid">
 <div class="name">DanSal</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">AdnyB</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg321</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg3212</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">SEGAL</div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
 <div class="val"><span class="avail yes">YES</span></div>
 </div>
 </div>
 <div class="card">
-<div class="cardTop">
-<div><div class="cardTitle"><span class="day4">DAY4</span> TLSA vs UNLV</div>
-<div class="cardMeta">7:00 PM • alive avail 148 (100.0%)</div></div>
-</div>
+<div class="cardTitle"><span class="day4">DAY4</span> <span class="favTeam">TLSA</span> vs UNLV</div>
+<div class="cardMeta">7:00 PM • alive avail 148 (100.0%)</div>
 <div class="cardRow">
 <span class="ml" style="background:rgb(234,238,255)">ML -192</span>
 <span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">Implied 65.8%</span>
 <span class="badge" style="background:rgba(34,197,94,.14); color:#bbf7d0; border:1px solid rgba(34,197,94,.30)">COMMON</span>
 <span class="pct" style="background:rgb(65,255,70)">100.0%</span>
 </div>
-<div class="grid5">
+<div class="entryGrid">
 <div class="name">DanSal</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">AdnyB</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg321</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg3212</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">SEGAL</div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
 <div class="val"><span class="avail yes">YES</span></div>
 </div>
 </div>
 <div class="card">
-<div class="cardTop">
-<div><div class="cardTitle"><span class="day4">DAY4</span> CONN vs UCLA</div>
-<div class="cardMeta">8:45 PM • alive avail 125 (84.5%)</div></div>
-</div>
+<div class="cardTitle"><span class="day4">DAY4</span> <span class="favTeam">CONN</span> vs UCLA</div>
+<div class="cardMeta">8:45 PM • alive avail 125 (84.5%)</div>
 <div class="cardRow">
 <span class="ml" style="background:rgb(236,239,255)">ML -185</span>
 <span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">Implied 64.9%</span>
 <span class="badge" style="background:rgba(147,197,253,.14); color:#bfdbfe; border:1px solid rgba(147,197,253,.30)">MID</span>
 <span class="pct" style="background:rgb(163,232,70)">84.5%</span>
 </div>
-<div class="grid5">
+<div class="entryGrid">
 <div class="name">DanSal</div>
-<div class="val"><span class="avail no">NO</span></div>
 <div class="name">AdnyB</div>
-<div class="val"><span class="avail no">NO</span></div>
 <div class="name">jdg321</div>
-<div class="val"><span class="avail no">NO</span></div>
 <div class="name">jdg3212</div>
-<div class="val"><span class="avail no">NO</span></div>
 <div class="name">SEGAL</div>
+<div class="val"><span class="avail no">NO</span></div>
+<div class="val"><span class="avail no">NO</span></div>
+<div class="val"><span class="avail no">NO</span></div>
+<div class="val"><span class="avail no">NO</span></div>
 <div class="val"><span class="avail no">NO</span></div>
 </div>
 </div>
 <div class="card">
-<div class="cardTop">
-<div><div class="cardTitle"><span class="day4">DAY4</span> OKST vs WICH</div>
-<div class="cardMeta">8:30 PM • alive avail 148 (100.0%)</div></div>
-</div>
+<div class="cardTitle"><span class="day4">DAY4</span> <span class="favTeam">OKST</span> vs WICH</div>
+<div class="cardMeta">8:30 PM • alive avail 148 (100.0%)</div>
 <div class="cardRow">
 <span class="ml" style="background:rgb(239,241,255)">ML -166</span>
 <span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">Implied 62.4%</span>
 <span class="badge" style="background:rgba(34,197,94,.14); color:#bbf7d0; border:1px solid rgba(34,197,94,.30)">COMMON</span>
 <span class="pct" style="background:rgb(65,255,70)">100.0%</span>
 </div>
-<div class="grid5">
+<div class="entryGrid">
 <div class="name">DanSal</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">AdnyB</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg321</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg3212</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">SEGAL</div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
 <div class="val"><span class="avail yes">YES</span></div>
 </div>
 </div>
 <div class="card">
-<div class="cardTop">
-<div><div class="cardTitle"><span class="day4">DAY4</span> SJU vs KU</div>
-<div class="cardMeta">5:15 PM • alive avail 124 (83.8%)</div></div>
-</div>
+<div class="cardTitle"><span class="day4">DAY4</span> <span class="favTeam">SJU</span> vs KU</div>
+<div class="cardMeta">5:15 PM • alive avail 124 (83.8%)</div>
 <div class="cardRow">
 <span class="ml" style="background:rgb(239,242,255)">ML -162</span>
 <span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">Implied 61.8%</span>
 <span class="badge" style="background:rgba(147,197,253,.14); color:#bfdbfe; border:1px solid rgba(147,197,253,.30)">MID</span>
 <span class="pct" style="background:rgb(168,231,70)">83.8%</span>
 </div>
-<div class="grid5">
+<div class="entryGrid">
 <div class="name">DanSal</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">AdnyB</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg321</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg3212</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">SEGAL</div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
 <div class="val"><span class="avail yes">YES</span></div>
 </div>
 </div>
 <div class="card">
-<div class="cardTop">
-<div><div class="cardTitle"><span class="day4">DAY4</span> TENN vs UVA</div>
-<div class="cardMeta">6:10 PM • alive avail 130 (87.8%)</div></div>
-</div>
+<div class="cardTitle"><span class="day4">DAY4</span> <span class="favTeam">TENN</span> vs UVA</div>
+<div class="cardMeta">6:10 PM • alive avail 130 (87.8%)</div>
 <div class="cardRow">
 <span class="ml" style="background:rgb(247,248,255)">ML -118</span>
 <span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">Implied 54.1%</span>
 <span class="badge" style="background:rgba(147,197,253,.14); color:#bfdbfe; border:1px solid rgba(147,197,253,.30)">MID</span>
 <span class="pct" style="background:rgb(142,237,70)">87.8%</span>
 </div>
-<div class="grid5">
+<div class="entryGrid">
 <div class="name">DanSal</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">AdnyB</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg321</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg3212</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">SEGAL</div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
 <div class="val"><span class="avail yes">YES</span></div>
 </div>
 </div>
 <div class="card">
-<div class="cardTop">
-<div><div class="cardTitle"><span class="day4">DAY4</span> ALA vs TTU</div>
-<div class="cardMeta">9:45 PM • alive avail 111 (75.0%)</div></div>
-</div>
+<div class="cardTitle"><span class="day4">DAY4</span> <span class="favTeam">ALA</span> vs TTU</div>
+<div class="cardMeta">9:45 PM • alive avail 111 (75.0%)</div>
 <div class="cardRow">
 <span class="ml" style="background:rgb(248,248,255)">ML -112</span>
 <span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">Implied 52.8%</span>
 <span class="badge" style="background:rgba(147,197,253,.14); color:#bfdbfe; border:1px solid rgba(147,197,253,.30)">MID</span>
 <span class="pct" style="background:rgb(223,218,70)">75.0%</span>
 </div>
-<div class="grid5">
+<div class="entryGrid">
 <div class="name">DanSal</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">AdnyB</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg321</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">jdg3212</div>
-<div class="val"><span class="avail yes">YES</span></div>
 <div class="name">SEGAL</div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail yes">YES</span></div>
 <div class="val"><span class="avail yes">YES</span></div>
 </div>
 </div>
 </div></section>
 <section class="tableSection">
 <div class="swipeHint">Desktop view: scroll horizontally to see all 5 entries. Day/Time/Favorite stay pinned.</div>
-<div class="tablewrap">
-<table><thead><tr>
+<div class="tablewrap"><table><thead><tr>
 <th class="sticky">Day</th><th class="sticky2">Time</th><th class="sticky3">Favorite</th>
 <th>Opp</th><th>ML</th><th>Implied</th><th>Scarcity</th><th>Alive avail %</th><th>Alive avail (#)</th>
 <th>DanSal</th>
@@ -675,7 +623,7 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <tr>
 <td class="sticky day3">DAY3</td>
 <td class="sticky2">12:10 PM</td>
-<td class="sticky3 fav">MICH</td>
+<td class="sticky3"><span class="favTeam">MICH</span></td>
 <td>SLU</td>
 <td><span class="ml" style="background:rgb(114,146,255)">-900</span></td>
 <td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">90.0%</span></td>
@@ -691,7 +639,7 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <tr>
 <td class="sticky day3">DAY3</td>
 <td class="sticky2">5:15 PM</td>
-<td class="sticky3 fav">DUKE</td>
+<td class="sticky3"><span class="favTeam">DUKE</span></td>
 <td>TCU</td>
 <td><span class="ml" style="background:rgb(140,166,255)">-750</span></td>
 <td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">88.2%</span></td>
@@ -707,7 +655,7 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <tr>
 <td class="sticky day3">DAY3</td>
 <td class="sticky2">9:45 PM</td>
-<td class="sticky3 fav">ARK</td>
+<td class="sticky3"><span class="favTeam">ARK</span></td>
 <td>HPU</td>
 <td><span class="ml" style="background:rgb(148,172,255)">-700</span></td>
 <td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">87.5%</span></td>
@@ -723,7 +671,7 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <tr>
 <td class="sticky day3">DAY3</td>
 <td class="sticky2">7:50 PM</td>
-<td class="sticky3 fav">ILL</td>
+<td class="sticky3"><span class="favTeam">ILL</span></td>
 <td>VCU</td>
 <td><span class="ml" style="background:rgb(169,188,255)">-575</span></td>
 <td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">85.2%</span></td>
@@ -739,7 +687,7 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <tr>
 <td class="sticky day3">DAY3</td>
 <td class="sticky2">6:10 PM</td>
-<td class="sticky3 fav">HOU</td>
+<td class="sticky3"><span class="favTeam">HOU</span></td>
 <td>ML</td>
 <td><span class="ml" style="background:rgb(176,193,255)">-535</span></td>
 <td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">84.3%</span></td>
@@ -755,7 +703,7 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <tr>
 <td class="sticky day3">DAY3</td>
 <td class="sticky2">9:00 PM</td>
-<td class="sticky3 fav">NEV</td>
+<td class="sticky3"><span class="favTeam">NEV</span></td>
 <td>LIB</td>
 <td><span class="ml" style="background:rgb(209,219,255)">-340</span></td>
 <td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">77.3%</span></td>
@@ -771,7 +719,7 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <tr>
 <td class="sticky day3">DAY3</td>
 <td class="sticky2">7:10 PM</td>
-<td class="sticky3 fav">GONZ</td>
+<td class="sticky3"><span class="favTeam">GONZ</span></td>
 <td>TEX</td>
 <td><span class="ml" style="background:rgb(225,231,255)">-250</span></td>
 <td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">71.4%</span></td>
@@ -787,7 +735,7 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <tr>
 <td class="sticky day3">DAY3</td>
 <td class="sticky2">2:45 PM</td>
-<td class="sticky3 fav">MSU</td>
+<td class="sticky3"><span class="favTeam">MSU</span></td>
 <td>LOU</td>
 <td><span class="ml" style="background:rgb(234,238,255)">-192</span></td>
 <td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">65.8%</span></td>
@@ -803,7 +751,7 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <tr>
 <td class="sticky day3">DAY3</td>
 <td class="sticky2">7:00 PM</td>
-<td class="sticky3 fav">DAY</td>
+<td class="sticky3"><span class="favTeam">DAY</span></td>
 <td>UNCW</td>
 <td><span class="ml" style="background:rgb(243,245,255)">-142</span></td>
 <td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">58.7%</span></td>
@@ -819,7 +767,7 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <tr>
 <td class="sticky day3">DAY3</td>
 <td class="sticky2">8:45 PM</td>
-<td class="sticky3 fav">VAN</td>
+<td class="sticky3"><span class="favTeam">VAN</span></td>
 <td>NEB</td>
 <td><span class="ml" style="background:rgb(246,247,255)">-125</span></td>
 <td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">55.6%</span></td>
@@ -835,7 +783,7 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <tr>
 <td class="sticky day4">DAY4</td>
 <td class="sticky2">6:30 PM</td>
-<td class="sticky3 fav">AUB</td>
+<td class="sticky3"><span class="favTeam">AUB</span></td>
 <td>SEA</td>
 <td><span class="ml" style="background:rgb(80,120,255)">-1100</span></td>
 <td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">91.7%</span></td>
@@ -851,7 +799,7 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <tr>
 <td class="sticky day4">DAY4</td>
 <td class="sticky2">7:50 PM</td>
-<td class="sticky3 fav">ARIZ</td>
+<td class="sticky3"><span class="favTeam">ARIZ</span></td>
 <td>USU</td>
 <td><span class="ml" style="background:rgb(131,159,255)">-800</span></td>
 <td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">88.9%</span></td>
@@ -867,7 +815,7 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <tr>
 <td class="sticky day4">DAY4</td>
 <td class="sticky2">7:10 PM</td>
-<td class="sticky3 fav">FLA</td>
+<td class="sticky3"><span class="favTeam">FLA</span></td>
 <td>IOWA</td>
 <td><span class="ml" style="background:rgb(165,185,255)">-600</span></td>
 <td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">85.7%</span></td>
@@ -883,7 +831,7 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <tr>
 <td class="sticky day4">DAY4</td>
 <td class="sticky2">8:00 PM</td>
-<td class="sticky3 fav">UNM</td>
+<td class="sticky3"><span class="favTeam">UNM</span></td>
 <td>GW</td>
 <td><span class="ml" style="background:rgb(208,218,255)">-345</span></td>
 <td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">77.5%</span></td>
@@ -899,7 +847,7 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <tr>
 <td class="sticky day4">DAY4</td>
 <td class="sticky2">12:10 PM</td>
-<td class="sticky3 fav">PUR</td>
+<td class="sticky3"><span class="favTeam">PUR</span></td>
 <td>MIA</td>
 <td><span class="ml" style="background:rgb(212,221,255)">-325</span></td>
 <td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">76.5%</span></td>
@@ -915,7 +863,7 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <tr>
 <td class="sticky day4">DAY4</td>
 <td class="sticky2">4:30 PM</td>
-<td class="sticky3 fav">WAKE</td>
+<td class="sticky3"><span class="favTeam">WAKE</span></td>
 <td>ILST</td>
 <td><span class="ml" style="background:rgb(212,221,255)">-325</span></td>
 <td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">76.5%</span></td>
@@ -931,7 +879,7 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <tr>
 <td class="sticky day4">DAY4</td>
 <td class="sticky2">9:00 PM</td>
-<td class="sticky3 fav">CAL</td>
+<td class="sticky3"><span class="favTeam">CAL</span></td>
 <td>JOES</td>
 <td><span class="ml" style="background:rgb(225,231,255)">-245</span></td>
 <td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">71.0%</span></td>
@@ -947,7 +895,7 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <tr>
 <td class="sticky day4">DAY4</td>
 <td class="sticky2">2:45 PM</td>
-<td class="sticky3 fav">ISU</td>
+<td class="sticky3"><span class="favTeam">ISU</span></td>
 <td>UK</td>
 <td><span class="ml" style="background:rgb(230,235,255)">-218</span></td>
 <td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">68.6%</span></td>
@@ -963,7 +911,7 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <tr>
 <td class="sticky day4">DAY4</td>
 <td class="sticky2">7:00 PM</td>
-<td class="sticky3 fav">TLSA</td>
+<td class="sticky3"><span class="favTeam">TLSA</span></td>
 <td>UNLV</td>
 <td><span class="ml" style="background:rgb(234,238,255)">-192</span></td>
 <td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">65.8%</span></td>
@@ -979,7 +927,7 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <tr>
 <td class="sticky day4">DAY4</td>
 <td class="sticky2">8:45 PM</td>
-<td class="sticky3 fav">CONN</td>
+<td class="sticky3"><span class="favTeam">CONN</span></td>
 <td>UCLA</td>
 <td><span class="ml" style="background:rgb(236,239,255)">-185</span></td>
 <td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">64.9%</span></td>
@@ -995,7 +943,7 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <tr>
 <td class="sticky day4">DAY4</td>
 <td class="sticky2">8:30 PM</td>
-<td class="sticky3 fav">OKST</td>
+<td class="sticky3"><span class="favTeam">OKST</span></td>
 <td>WICH</td>
 <td><span class="ml" style="background:rgb(239,241,255)">-166</span></td>
 <td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">62.4%</span></td>
@@ -1011,7 +959,7 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <tr>
 <td class="sticky day4">DAY4</td>
 <td class="sticky2">5:15 PM</td>
-<td class="sticky3 fav">SJU</td>
+<td class="sticky3"><span class="favTeam">SJU</span></td>
 <td>KU</td>
 <td><span class="ml" style="background:rgb(239,242,255)">-162</span></td>
 <td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">61.8%</span></td>
@@ -1027,7 +975,7 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <tr>
 <td class="sticky day4">DAY4</td>
 <td class="sticky2">6:10 PM</td>
-<td class="sticky3 fav">TENN</td>
+<td class="sticky3"><span class="favTeam">TENN</span></td>
 <td>UVA</td>
 <td><span class="ml" style="background:rgb(247,248,255)">-118</span></td>
 <td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">54.1%</span></td>
@@ -1043,7 +991,7 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <tr>
 <td class="sticky day4">DAY4</td>
 <td class="sticky2">9:45 PM</td>
-<td class="sticky3 fav">ALA</td>
+<td class="sticky3"><span class="favTeam">ALA</span></td>
 <td>TTU</td>
 <td><span class="ml" style="background:rgb(248,248,255)">-112</span></td>
 <td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">52.8%</span></td>
