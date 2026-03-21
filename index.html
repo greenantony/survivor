@@ -73,38 +73,18 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
   .tableSection { display:none; }
   .cardSection { display:block; }
 }
-@media (max-width: 420px) {
-  .cardTitle { font-size: 14px; }
-  .entryGrid .name { font-size: 10px; }
-  .avail { min-width: 34px; padding: 3px 4px; }
-  .favTeam { padding: 2px 6px; }
-}
 </style></head><body><div class="wrap">
 <div class="hero">
 <div><h1>Survivor Heatmap — Day 3 & Day 4 favorites (alive entries only)</h1>
-<div class="sub">Built from <code>survivor-pool/heatmap_inputs_day3_day4_alive148.csv</code>. Includes implied win %, scarcity, and a save-vs-leverage score.</div></div>
+<div class="sub">Built from <code>survivor-pool/heatmap_inputs_day3_day4_alive148.csv</code> filtered by <code>survivor-pool/schedule_day3_day4.md</code>.</div></div>
 <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end">
 <div class="deadlineBox" aria-label="deadline countdown"><div><div class="label">Deadline</div><div class="meta">12:00 PM ET</div></div><div class="time" id="countdown">—</div></div>
 <div class="aliveBig" aria-label="alive entries"><span class="label">Alive entries</span><span class="num">148</span></div>
 </div></div>
-<div class="legendTitle">Scarcity legend (based on alive availability)</div>
-<div class="legend">
-<span class="chip"><span class="badge" style="background:rgba(34,197,94,.14); color:#bbf7d0; border:1px solid rgba(34,197,94,.30)">COMMON</span> ≥ 90%</span>
-<span class="chip"><span class="badge" style="background:rgba(147,197,253,.14); color:#bfdbfe; border:1px solid rgba(147,197,253,.30)">MID</span> 70–90%</span>
-<span class="chip"><span class="badge" style="background:rgba(251,191,36,.18); color:#fde68a; border:1px solid rgba(251,191,36,.35)">SCARCE</span> &lt; 70%</span>
-</div>
-<div class="legendTitle">Heat / availability legend</div>
-<div class="legend">
-<span class="chip"><span class="swatch" style="background:rgb(255,30,70)"></span> Low field availability</span>
-<span class="chip"><span class="swatch" style="background:rgb(255,210,70)"></span> Medium field availability</span>
-<span class="chip"><span class="swatch" style="background:rgb(78,252,70)"></span> High field availability</span>
-<span class="chip"><span class="avail yes">YES</span> available</span>
-<span class="chip"><span class="avail no">NO</span> burned</span>
-</div>
 <div class="legendTitle">Pick Value Score</div>
 <div class="sub" style="margin-top:0">
   <b>Pick Value Score</b> = implied win% + <b>w</b> × (100 − alive avail%).
-  <span id="weightExplain">Here <b>w = 0.10</b> (light leverage weight): a 10-point drop in alive availability adds +1.0 to the score.</span>
+  <span id="weightExplain">Here <b>w = 0.10</b> (leverage weight): a 10-point drop in alive availability adds <b>+1.0</b> to the score.</span>
   Higher = safer, with a small bonus for being more scarce.
 </div>
 <div class="sub" style="margin-top:-6px">
@@ -475,10 +455,9 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <div class="val"><span class="avail yes">YES</span></div>
 </div></div>
 </div></section>
-<section class="tableSection"><div class="swipeHint">Desktop view: scroll horizontally to see all 5 entries. Day/Time/Favorite stay pinned.</div>
+<section class="tableSection"><div class="swipeHint">Desktop view: scroll horizontally. Click headers to sort.</div>
 <div class="tablewrap"><table id="heatmapTable"><thead><tr>
-<th class="sticky sortable" data-type="text">Day<span class="arrow"></span></th><th class="sticky2 sortable" data-type="time">Time<span class="arrow"></span></th><th class="sticky3 sortable" data-type="text">Favorite<span class="arrow"></span></th>
-<th class="sortable" data-type="text">Opp<span class="arrow"></span></th><th class="sortable" data-type="num">ML<span class="arrow"></span></th><th class="sortable" data-type="pct">Implied<span class="arrow"></span></th><th class="sortable" data-type="num">Pick Value<span class="arrow"></span></th><th class="sortable" data-type="text">Scarcity<span class="arrow"></span></th><th class="sortable" data-type="pct">Alive avail %<span class="arrow"></span></th><th class="sortable" data-type="num">Alive avail (#)<span class="arrow"></span></th>
+<th class="sticky sortable" data-type="text">Day<span class="arrow"></span></th><th class="sticky2 sortable" data-type="time">Time<span class="arrow"></span></th><th class="sticky3 sortable" data-type="text">Favorite<span class="arrow"></span></th><th class="sortable" data-type="text">Opp<span class="arrow"></span></th><th class="sortable" data-type="num">ML<span class="arrow"></span></th><th class="sortable" data-type="pct">Implied<span class="arrow"></span></th><th class="sortable" data-type="num">Pick Value (w=0.10)<span class="arrow"></span></th><th class="sortable" data-type="text">Scarcity<span class="arrow"></span></th><th class="sortable" data-type="pct">Alive avail %<span class="arrow"></span></th><th class="sortable" data-type="num">Alive avail (#)<span class="arrow"></span></th>
 <th>DanSal</th>
 <th>AdnyB</th>
 <th>jdg321</th>
@@ -572,23 +551,6 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 </tr>
 <tr>
 <td class="sticky day3">DAY3</td>
-<td class="sticky2">9:00 PM</td>
-<td class="sticky3"><span class="favTeam">NEV</span></td>
-<td>LIB</td>
-<td><span class="ml" style="background:rgb(209,219,255)">-340</span></td>
-<td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">77.3%</span></td>
-<td><span class="score" style="background:rgba(136,165,68,.18)">77.3</span></td>
-<td><span class="badge" style="background:rgba(34,197,94,.14); color:#bbf7d0; border:1px solid rgba(34,197,94,.30)">COMMON</span></td>
-<td><span class="pct" style="background:rgb(65,255,70)">100.0%</span></td>
-<td><span class="count">148</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-</tr>
-<tr>
-<td class="sticky day3">DAY3</td>
 <td class="sticky2">7:10 PM</td>
 <td class="sticky3"><span class="favTeam">GONZ</span></td>
 <td>TEX</td>
@@ -623,46 +585,12 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 </tr>
 <tr>
 <td class="sticky day3">DAY3</td>
-<td class="sticky2">7:00 PM</td>
-<td class="sticky3"><span class="favTeam">DAY</span></td>
-<td>UNCW</td>
-<td><span class="ml" style="background:rgb(243,245,255)">-142</span></td>
-<td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">58.7%</span></td>
-<td><span class="score" style="background:rgba(206,99,68,.18)">58.7</span></td>
-<td><span class="badge" style="background:rgba(34,197,94,.14); color:#bbf7d0; border:1px solid rgba(34,197,94,.30)">COMMON</span></td>
-<td><span class="pct" style="background:rgb(65,255,70)">100.0%</span></td>
-<td><span class="count">148</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-</tr>
-<tr>
-<td class="sticky day3">DAY3</td>
 <td class="sticky2">8:45 PM</td>
 <td class="sticky3"><span class="favTeam">VAN</span></td>
 <td>NEB</td>
 <td><span class="ml" style="background:rgb(246,247,255)">-125</span></td>
 <td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">55.6%</span></td>
 <td><span class="score" style="background:rgba(218,88,68,.18)">55.6</span></td>
-<td><span class="badge" style="background:rgba(34,197,94,.14); color:#bbf7d0; border:1px solid rgba(34,197,94,.30)">COMMON</span></td>
-<td><span class="pct" style="background:rgb(65,255,70)">100.0%</span></td>
-<td><span class="count">148</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-</tr>
-<tr>
-<td class="sticky day4">DAY4</td>
-<td class="sticky2">6:30 PM</td>
-<td class="sticky3"><span class="favTeam">AUB</span></td>
-<td>SEA</td>
-<td><span class="ml" style="background:rgb(80,120,255)">-1100</span></td>
-<td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">91.7%</span></td>
-<td><span class="score" style="background:rgba(82,216,68,.18)">91.7</span></td>
 <td><span class="badge" style="background:rgba(34,197,94,.14); color:#bbf7d0; border:1px solid rgba(34,197,94,.30)">COMMON</span></td>
 <td><span class="pct" style="background:rgb(65,255,70)">100.0%</span></td>
 <td><span class="count">148</span></td>
@@ -708,63 +636,12 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 </tr>
 <tr>
 <td class="sticky day4">DAY4</td>
-<td class="sticky2">8:00 PM</td>
-<td class="sticky3"><span class="favTeam">UNM</span></td>
-<td>GW</td>
-<td><span class="ml" style="background:rgb(208,218,255)">-345</span></td>
-<td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">77.5%</span></td>
-<td><span class="score" style="background:rgba(135,166,68,.18)">77.5</span></td>
-<td><span class="badge" style="background:rgba(34,197,94,.14); color:#bbf7d0; border:1px solid rgba(34,197,94,.30)">COMMON</span></td>
-<td><span class="pct" style="background:rgb(65,255,70)">100.0%</span></td>
-<td><span class="count">148</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-</tr>
-<tr>
-<td class="sticky day4">DAY4</td>
 <td class="sticky2">12:10 PM</td>
 <td class="sticky3"><span class="favTeam">PUR</span></td>
 <td>MIA</td>
 <td><span class="ml" style="background:rgb(212,221,255)">-325</span></td>
 <td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">76.5%</span></td>
 <td><span class="score" style="background:rgba(139,162,68,.18)">76.5</span></td>
-<td><span class="badge" style="background:rgba(34,197,94,.14); color:#bbf7d0; border:1px solid rgba(34,197,94,.30)">COMMON</span></td>
-<td><span class="pct" style="background:rgb(65,255,70)">100.0%</span></td>
-<td><span class="count">148</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-</tr>
-<tr>
-<td class="sticky day4">DAY4</td>
-<td class="sticky2">4:30 PM</td>
-<td class="sticky3"><span class="favTeam">WAKE</span></td>
-<td>ILST</td>
-<td><span class="ml" style="background:rgb(212,221,255)">-325</span></td>
-<td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">76.5%</span></td>
-<td><span class="score" style="background:rgba(139,162,68,.18)">76.5</span></td>
-<td><span class="badge" style="background:rgba(34,197,94,.14); color:#bbf7d0; border:1px solid rgba(34,197,94,.30)">COMMON</span></td>
-<td><span class="pct" style="background:rgb(65,255,70)">100.0%</span></td>
-<td><span class="count">148</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-</tr>
-<tr>
-<td class="sticky day4">DAY4</td>
-<td class="sticky2">9:00 PM</td>
-<td class="sticky3"><span class="favTeam">CAL</span></td>
-<td>JOES</td>
-<td><span class="ml" style="background:rgb(225,231,255)">-245</span></td>
-<td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">71.0%</span></td>
-<td><span class="score" style="background:rgba(160,143,68,.18)">71.0</span></td>
 <td><span class="badge" style="background:rgba(34,197,94,.14); color:#bbf7d0; border:1px solid rgba(34,197,94,.30)">COMMON</span></td>
 <td><span class="pct" style="background:rgb(65,255,70)">100.0%</span></td>
 <td><span class="count">148</span></td>
@@ -793,23 +670,6 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 </tr>
 <tr>
 <td class="sticky day4">DAY4</td>
-<td class="sticky2">7:00 PM</td>
-<td class="sticky3"><span class="favTeam">TLSA</span></td>
-<td>UNLV</td>
-<td><span class="ml" style="background:rgb(234,238,255)">-192</span></td>
-<td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">65.8%</span></td>
-<td><span class="score" style="background:rgba(179,124,68,.18)">65.8</span></td>
-<td><span class="badge" style="background:rgba(34,197,94,.14); color:#bbf7d0; border:1px solid rgba(34,197,94,.30)">COMMON</span></td>
-<td><span class="pct" style="background:rgb(65,255,70)">100.0%</span></td>
-<td><span class="count">148</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-</tr>
-<tr>
-<td class="sticky day4">DAY4</td>
 <td class="sticky2">8:45 PM</td>
 <td class="sticky3"><span class="favTeam">CONN</span></td>
 <td>UCLA</td>
@@ -824,23 +684,6 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <td style="text-align:center"><span class="avail no">NO</span></td>
 <td style="text-align:center"><span class="avail no">NO</span></td>
 <td style="text-align:center"><span class="avail no">NO</span></td>
-</tr>
-<tr>
-<td class="sticky day4">DAY4</td>
-<td class="sticky2">8:30 PM</td>
-<td class="sticky3"><span class="favTeam">OKST</span></td>
-<td>WICH</td>
-<td><span class="ml" style="background:rgb(239,241,255)">-166</span></td>
-<td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">62.4%</span></td>
-<td><span class="score" style="background:rgba(192,112,68,.18)">62.4</span></td>
-<td><span class="badge" style="background:rgba(34,197,94,.14); color:#bbf7d0; border:1px solid rgba(34,197,94,.30)">COMMON</span></td>
-<td><span class="pct" style="background:rgb(65,255,70)">100.0%</span></td>
-<td><span class="count">148</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
 </tr>
 <tr>
 <td class="sticky day4">DAY4</td>
@@ -894,7 +737,6 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <td style="text-align:center"><span class="avail yes">YES</span></td>
 </tr>
 </tbody></table></div></section>
-<div class="sub" style="margin-top:12px">Scarcity uses alive availability: COMMON ≥ 90%, MID 70–90%, SCARCE &lt; 70%.</div>
 <script>
 (function(){
   const el = document.getElementById('countdown');
@@ -934,18 +776,7 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
     const ss = String(s).padStart(2,'0');
     return h>0 ? (h + ':' + mm + ':' + ss) : (m + ':' + ss);
   }
-  function tick(){
-    const now = Date.now();
-    const diff = deadline - now;
-    el.textContent = fmt(diff);
-    const box = el.closest('.deadlineBox');
-    if(box){
-      const min = diff/60000;
-      if(min <= 30){ box.style.background = 'rgba(239,68,68,.18)'; box.style.borderColor = 'rgba(239,68,68,.45)'; }
-      else if(min <= 120){ box.style.background = 'rgba(251,191,36,.14)'; box.style.borderColor = 'rgba(251,191,36,.35)'; }
-      else { box.style.background = 'rgba(239,68,68,.10)'; box.style.borderColor = 'rgba(239,68,68,.30)'; }
-    }
-  }
+  function tick(){ el.textContent = fmt(deadline - Date.now()); }
   tick();
   setInterval(tick, 1000);
 })();
@@ -965,11 +796,12 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
       return Number.isFinite(x) ? x : null;
     }
     if(type === 'pct'){
-      const x = parseFloat(t.replace('%',''));
+      const m = /(-?\d+(?:\.\d+)?)/.exec(t.replace('%',''));
+      if(!m) return null;
+      const x = parseFloat(m[1]);
       return Number.isFinite(x) ? x : null;
     }
     if(type === 'time'){
-      // "12:10 PM" -> minutes since midnight
       const m = /^\s*(\d{1,2}):(\d{2})\s*(AM|PM)\s*$/i.exec(t);
       if(!m) return null;
       let hh = parseInt(m[1],10) % 12;
@@ -978,7 +810,6 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
       if(ap === 'PM') hh += 12;
       return hh*60 + mm;
     }
-    // text
     return t.toUpperCase();
   }
 
@@ -988,7 +819,6 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
   }
 
   let state = { col: null, dir: 1 };
-
   function setArrows(activeIdx, dir){
     headers.forEach((th,i)=>{
       const arrow = th.querySelector('.arrow');
@@ -1005,12 +835,9 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
     rowsArr.sort((a,b)=>{
       const va = parseValue(cellText(a,colIdx), type);
       const vb = parseValue(cellText(b,colIdx), type);
-
-      // nulls last
       if(va==null && vb==null) return 0;
       if(va==null) return 1;
       if(vb==null) return -1;
-
       if(va < vb) return -1*dir;
       if(va > vb) return  1*dir;
       return 0;
@@ -1040,17 +867,15 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
   if(!slider) return;
 
   function clamp(x,a,b){ return Math.max(a, Math.min(b,x)); }
-  function scoreColor(s){
-    // same vibe as before: greener for higher
+  function scoreColorLocal(s){
     if(!Number.isFinite(s)) return 'rgba(255,255,255,.05)';
     const x = clamp((s-50)/(95-50),0,1);
     const r = Math.round(239 - x*170);
     const g = Math.round(68 + x*160);
     const b = 68;
-    return `rgba(${r},${g},${b},.18)`;
+    return 'rgba(' + r + ',' + g + ',' + b + ',.18)';
   }
-
-  function parsePct(str){
+  function parseNumberFromText(str){
     const t = (str||'').trim();
     const m = /(-?\d+(?:\.\d+)?)/.exec(t.replace('%',''));
     if(!m) return null;
@@ -1062,29 +887,22 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
     if(!table) return;
     const rows = Array.from(table.tBodies[0].rows);
     rows.forEach(r=>{
-      // columns: ... Implied (6), Pick Value (7), Alive avail % (9)
       const impliedCell = r.cells[5];
       const scoreCell = r.cells[6];
       const availCell = r.cells[8];
       if(!impliedCell || !scoreCell || !availCell) return;
-
-      const implied = parsePct(impliedCell.textContent);
-      const avail = parsePct(availCell.textContent);
+      const implied = parseNumberFromText(impliedCell.textContent);
+      const avail = parseNumberFromText(availCell.textContent);
       if(implied==null || avail==null) return;
-
-      const score = implied + w*(100 - avail);
+      const s = implied + w*(100-avail);
       const span = scoreCell.querySelector('.score');
       if(span){
-        span.textContent = score.toFixed(1);
-        span.style.background = scoreColor(score);
-      } else {
-        scoreCell.textContent = score.toFixed(1);
+        span.textContent = s.toFixed(1);
+        span.style.background = scoreColorLocal(s);
       }
     });
-
-    // Update header label to show current w
     const th = table.tHead.rows[0].cells[6];
-    if(th) th.childNodes[0].nodeValue = `Pick Value (w=${w.toFixed(2)})`;
+    if(th) th.childNodes[0].nodeValue = 'Pick Value (w=' + w.toFixed(2) + ')';
   }
 
   function updateCards(w){
@@ -1094,22 +912,13 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
       const availPctSpan = card.querySelector('.pct');
       const scoreSpan = card.querySelector('.score');
       if(!impliedBadge || !availPctSpan || !scoreSpan) return;
-
-      const implied = parsePct(impliedBadge.textContent);
-      const avail = parsePct(availPctSpan.textContent);
+      const implied = parseNumberFromText(impliedBadge.textContent);
+      const avail = parseNumberFromText(availPctSpan.textContent);
       if(implied==null || avail==null) return;
-
-      const score = implied + w*(100 - avail);
-      scoreSpan.textContent = `Score ${score.toFixed(1)}`;
-      scoreSpan.style.background = scoreColor(score);
+      const s = implied + w*(100-avail);
+      scoreSpan.textContent = 'Score ' + s.toFixed(1);
+      scoreSpan.style.background = scoreColorLocal(s);
     });
-  }
-
-  function update(w){
-    weightValue.textContent = `w=${w.toFixed(2)}`;
-    weightExplain.innerHTML = `Here <b>w = ${w.toFixed(2)}</b> (leverage weight): a 10-point drop in alive availability adds <b>+${(w*10).toFixed(1)}</b> to the score.`;
-    updateTable(w);
-    updateCards(w);
   }
 
   function setActivePreset(w){
@@ -1117,6 +926,13 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
       const bw = parseFloat(btn.getAttribute('data-w'));
       btn.classList.toggle('active', Math.abs(bw - w) < 0.0001);
     });
+  }
+
+  function update(w){
+    weightValue.textContent = 'w=' + w.toFixed(2);
+    if(weightExplain) weightExplain.innerHTML = 'Here <b>w = ' + w.toFixed(2) + '</b> (leverage weight): a 10-point drop in alive availability adds <b>+' + (w*10).toFixed(1) + '</b> to the score.';
+    updateTable(w);
+    updateCards(w);
   }
 
   slider.addEventListener('input', ()=>{
@@ -1139,5 +955,4 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
   update(initialW);
 })();
 </script>
-
 </div></body></html>
