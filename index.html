@@ -41,6 +41,13 @@ h1 { font-size: 18px; margin: 0 0 6px; }
 
 table { width: max-content; min-width: 1150px; border-collapse: collapse; }
 thead th { position: sticky; top: 0; background: rgba(17,24,39,.96); backdrop-filter: blur(8px); z-index: 3; }
+th.sortable { cursor: pointer; user-select: none; }
+th.sortable .arrow { opacity:.65; margin-left:6px; font-size: 11px; }
+
+button.presetBtn { appearance: none; border: 1px solid var(--grid); background: rgba(255,255,255,.05); color: var(--text); border-radius: 999px; padding: 6px 10px; font-size: 12px; font-weight: 850; cursor: pointer; }
+button.presetBtn:hover { background: rgba(255,255,255,.08); }
+button.presetBtn.active { border-color: rgba(147,197,253,.50); background: rgba(147,197,253,.12); }
+
 th, td { border-bottom:1px solid var(--grid); padding: 9px 10px; font-size: 13px; text-align:left; white-space: nowrap; }
 
 tbody tr:hover { background: rgba(255,255,255,.04); }
@@ -97,8 +104,22 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <div class="legendTitle">Pick Value Score</div>
 <div class="sub" style="margin-top:0">
   <b>Pick Value Score</b> = implied win% + <b>w</b> × (100 − alive avail%).
-  Here <b>w = 0.10</b> (light leverage weight): a 10-point drop in alive availability adds +1.0 to the score.
+  <span id="weightExplain">Here <b>w = 0.10</b> (light leverage weight): a 10-point drop in alive availability adds +1.0 to the score.</span>
   Higher = safer, with a small bonus for being more scarce.
+</div>
+<div class="sub" style="margin-top:-6px">
+  <label for="weightSlider" style="display:flex; gap:10px; align-items:center; flex-wrap:wrap">
+    <span style="min-width:150px; color:var(--muted); font-weight:800; text-transform:uppercase; letter-spacing:.3px; font-size:12px">Leverage weight (w)</span>
+    <input id="weightSlider" type="range" min="0" max="0.30" step="0.01" value="0.10" style="width:260px" />
+    <span class="badge" id="weightValue" style="background:rgba(255,255,255,.06); color:var(--text)">w=0.10</span>
+  </label>
+  <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px">
+    <button class="presetBtn" type="button" data-w="0.00">Safety (0.00)</button>
+    <button class="presetBtn" type="button" data-w="0.05">Light (0.05)</button>
+    <button class="presetBtn" type="button" data-w="0.10">Default (0.10)</button>
+    <button class="presetBtn" type="button" data-w="0.20">Aggro (0.20)</button>
+    <button class="presetBtn" type="button" data-w="0.30">YOLO (0.30)</button>
+  </div>
 </div>
 <section class="cardSection"><div class="swipeHint">Mobile view: cards.</div><div class="cards">
 <div class="card">
@@ -631,9 +652,9 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 </div></div>
 </div></section>
 <section class="tableSection"><div class="swipeHint">Desktop view: scroll horizontally to see all 5 entries. Day/Time/Favorite stay pinned.</div>
-<div class="tablewrap"><table><thead><tr>
-<th class="sticky">Day</th><th class="sticky2">Time</th><th class="sticky3">Favorite</th>
-<th>Opp</th><th>ML</th><th>Implied</th><th>Score</th><th>Scarcity</th><th>Alive avail %</th><th>Alive avail (#)</th>
+<div class="tablewrap"><table id="heatmapTable"><thead><tr>
+<th class="sticky sortable" data-type="text">Day<span class="arrow"></span></th><th class="sticky2 sortable" data-type="time">Time<span class="arrow"></span></th><th class="sticky3 sortable" data-type="text">Favorite<span class="arrow"></span></th>
+<th class="sortable" data-type="text">Opp<span class="arrow"></span></th><th class="sortable" data-type="num">ML<span class="arrow"></span></th><th class="sortable" data-type="pct">Implied<span class="arrow"></span></th><th class="sortable" data-type="num">Pick Value<span class="arrow"></span></th><th class="sortable" data-type="text">Scarcity<span class="arrow"></span></th><th class="sortable" data-type="pct">Alive avail %<span class="arrow"></span></th><th class="sortable" data-type="num">Alive avail (#)<span class="arrow"></span></th>
 <th>DanSal</th>
 <th>AdnyB</th>
 <th>jdg321</th>
@@ -1105,4 +1126,192 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
   setInterval(tick, 1000);
 })();
 </script>
+
+<script>
+(function(){
+  const table = document.getElementById('heatmapTable');
+  if(!table) return;
+  const tbody = table.tBodies[0];
+  const headers = Array.from(table.tHead.rows[0].cells);
+
+  function parseValue(text, type){
+    const t = (text||'').trim();
+    if(type === 'num'){
+      const x = parseFloat(t.replace(/[^0-9\-\.]/g,''));
+      return Number.isFinite(x) ? x : null;
+    }
+    if(type === 'pct'){
+      const x = parseFloat(t.replace('%',''));
+      return Number.isFinite(x) ? x : null;
+    }
+    if(type === 'time'){
+      // "12:10 PM" -> minutes since midnight
+      const m = /^\s*(\d{1,2}):(\d{2})\s*(AM|PM)\s*$/i.exec(t);
+      if(!m) return null;
+      let hh = parseInt(m[1],10) % 12;
+      const mm = parseInt(m[2],10);
+      const ap = m[3].toUpperCase();
+      if(ap === 'PM') hh += 12;
+      return hh*60 + mm;
+    }
+    // text
+    return t.toUpperCase();
+  }
+
+  function cellText(row, colIdx){
+    const cell = row.cells[colIdx];
+    return cell ? cell.textContent : '';
+  }
+
+  let state = { col: null, dir: 1 };
+
+  function setArrows(activeIdx, dir){
+    headers.forEach((th,i)=>{
+      const arrow = th.querySelector('.arrow');
+      if(!arrow) return;
+      arrow.textContent = (i===activeIdx) ? (dir===1 ? '▲' : '▼') : '';
+    });
+  }
+
+  function sortBy(colIdx, type){
+    const rowsArr = Array.from(tbody.rows);
+    const dir = (state.col === colIdx) ? -state.dir : 1;
+    state = { col: colIdx, dir };
+
+    rowsArr.sort((a,b)=>{
+      const va = parseValue(cellText(a,colIdx), type);
+      const vb = parseValue(cellText(b,colIdx), type);
+
+      // nulls last
+      if(va==null && vb==null) return 0;
+      if(va==null) return 1;
+      if(vb==null) return -1;
+
+      if(va < vb) return -1*dir;
+      if(va > vb) return  1*dir;
+      return 0;
+    });
+
+    const frag = document.createDocumentFragment();
+    rowsArr.forEach(r=>frag.appendChild(r));
+    tbody.appendChild(frag);
+    setArrows(colIdx, dir);
+  }
+
+  headers.forEach((th, idx)=>{
+    if(!th.classList.contains('sortable')) return;
+    const type = th.getAttribute('data-type') || 'text';
+    th.addEventListener('click', ()=>sortBy(idx, type));
+    th.setAttribute('title','Click to sort');
+  });
+})();
+</script>
+
+<script>
+(function(){
+  const slider = document.getElementById('weightSlider');
+  const weightValue = document.getElementById('weightValue');
+  const weightExplain = document.getElementById('weightExplain');
+  const table = document.getElementById('heatmapTable');
+  if(!slider) return;
+
+  function clamp(x,a,b){ return Math.max(a, Math.min(b,x)); }
+  function scoreColor(s){
+    // same vibe as before: greener for higher
+    if(!Number.isFinite(s)) return 'rgba(255,255,255,.05)';
+    const x = clamp((s-50)/(95-50),0,1);
+    const r = Math.round(239 - x*170);
+    const g = Math.round(68 + x*160);
+    const b = 68;
+    return `rgba(${r},${g},${b},.18)`;
+  }
+
+  function parsePct(str){
+    const t=(str||'').trim().replace('%','');
+    const x=parseFloat(t);
+    return Number.isFinite(x) ? x : null;
+  }
+
+  function updateTable(w){
+    if(!table) return;
+    const rows = Array.from(table.tBodies[0].rows);
+    rows.forEach(r=>{
+      // columns: ... Implied (6), Pick Value (7), Alive avail % (9)
+      const impliedCell = r.cells[5];
+      const scoreCell = r.cells[6];
+      const availCell = r.cells[8];
+      if(!impliedCell || !scoreCell || !availCell) return;
+
+      const implied = parsePct(impliedCell.textContent);
+      const avail = parsePct(availCell.textContent);
+      if(implied==null || avail==null) return;
+
+      const score = implied + w*(100 - avail);
+      const span = scoreCell.querySelector('.score');
+      if(span){
+        span.textContent = score.toFixed(1);
+        span.style.background = scoreColor(score);
+      } else {
+        scoreCell.textContent = score.toFixed(1);
+      }
+    });
+
+    // Update header label to show current w
+    const th = table.tHead.rows[0].cells[6];
+    if(th) th.childNodes[0].nodeValue = `Pick Value (w=${w.toFixed(2)})`;
+  }
+
+  function updateCards(w){
+    const cards = Array.from(document.querySelectorAll('.card'));
+    cards.forEach(card=>{
+      const impliedBadge = Array.from(card.querySelectorAll('.badge')).find(b=>/Implied/i.test(b.textContent||''));
+      const availPctSpan = card.querySelector('.pct');
+      const scoreSpan = card.querySelector('.score');
+      if(!impliedBadge || !availPctSpan || !scoreSpan) return;
+
+      const implied = parsePct(impliedBadge.textContent);
+      const avail = parsePct(availPctSpan.textContent);
+      if(implied==null || avail==null) return;
+
+      const score = implied + w*(100 - avail);
+      scoreSpan.textContent = `Score ${score.toFixed(1)}`;
+      scoreSpan.style.background = scoreColor(score);
+    });
+  }
+
+  function update(w){
+    weightValue.textContent = `w=${w.toFixed(2)}`;
+    weightExplain.innerHTML = `Here <b>w = ${w.toFixed(2)}</b> (leverage weight): a 10-point drop in alive availability adds <b>+${(w*10).toFixed(1)}</b> to the score.`;
+    updateTable(w);
+    updateCards(w);
+  }
+
+  function setActivePreset(w){
+    document.querySelectorAll('button.presetBtn').forEach(btn=>{
+      const bw = parseFloat(btn.getAttribute('data-w'));
+      btn.classList.toggle('active', Math.abs(bw - w) < 0.0001);
+    });
+  }
+
+  slider.addEventListener('input', ()=>{
+    const w = parseFloat(slider.value);
+    setActivePreset(w);
+    update(w);
+  });
+
+  document.querySelectorAll('button.presetBtn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const w = parseFloat(btn.getAttribute('data-w'));
+      slider.value = w.toFixed(2);
+      setActivePreset(w);
+      update(w);
+    });
+  });
+
+  const initialW = parseFloat(slider.value);
+  setActivePreset(initialW);
+  update(initialW);
+})();
+</script>
+
 </div></body></html>
