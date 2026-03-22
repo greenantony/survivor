@@ -80,6 +80,11 @@ h1 { font-size: 18px; margin: 0 0 6px; }
 .pct { font-variant-numeric: tabular-nums; color:#0b0f14; font-weight:900; border-radius:6px; padding: 3px 6px; display:inline-block; border:1px solid rgba(0,0,0,.25); min-width: 64px; text-align:center; }
 .count { font-variant-numeric: tabular-nums; color: var(--text); background: rgba(255,255,255,.06); border:1px solid var(--grid); font-weight:800; border-radius:6px; padding: 3px 6px; display:inline-block; min-width: 44px; text-align:center; }
 .score { font-variant-numeric: tabular-nums; font-weight:950; border-radius:999px; padding: 3px 10px; display:inline-block; border:1px solid var(--grid); color: var(--text); }
+.outcomePill{ font-variant-numeric: tabular-nums; font-weight:900; border-radius:999px; padding:2px 8px; display:inline-flex; gap:6px; align-items:center; border:1px solid var(--grid); background: rgba(255,255,255,.05); color: var(--text); }
+.outcomePill .wp{ color:#bfdbfe; font-weight:950; }
+.outcomePill .elim{ color:#fecaca; font-weight:950; }
+.outcomePill.wpFav{ border-color: rgba(34,197,94,.35); background: rgba(34,197,94,.10); }
+.outcomePill.wpDog{ border-color: rgba(239,68,68,.30); background: rgba(239,68,68,.08); }
 
 .avail { text-align:center; font-weight: 900; border-radius: 6px; padding: 3px 6px; display:inline-block; min-width: 38px; }
 .yes { background: rgba(34,197,94,.18); color: #bbf7d0; border: 1px solid rgba(34,197,94,.40); }
@@ -180,13 +185,17 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <section class="cardSection"><div class="swipeHint">Mobile view: cards.</div><div class="cards">
 <div class="card" data-team="ARIZ" data-opp="USU">
 <div class="cardTitle"><span class="day4">DAY4</span> <span class="favTeam">ARIZ</span> vs USU</div>
-<div class="cardMeta">7:50 PM • <span class="liveLine" data-live="1">—</span> • alive avail 130 (98.5%)</div>
+<div class="cardMeta">7:50 PM • <span class="liveLine" data-live="1">—</span> • alive avail 122 (92.4%)</div>
 <div class="cardRow">
 <span class="ml" style="background:rgb(131,159,255)">ML -800</span>
 <span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">Implied 88.9%</span>
 <span class="badge" style="background:rgba(34,197,94,.14); color:#bbf7d0; border:1px solid rgba(34,197,94,.30)">COMMON</span>
-<span class="pct" style="background:rgb(75,253,70)">98.5%</span>
-<span class="score" style="background:rgba(92,207,68,.18)">Score 89.0</span>
+<span class="pct" style="background:rgb(113,244,70)">92.4%</span>
+<span class="score" style="background:rgba(89,209,68,.18)">Score 89.6</span>
+</div>
+<div class="cardRow" style="margin-top:8px">
+<span class="outcomePill" data-outcome="ARIZ" data-opp="USU">If <b>ARIZ</b> wins: <span class="elim">elim 0</span> <span class="wp" data-wpteam="ARIZ">WP —</span></span>
+<span class="outcomePill" data-outcome="USU" data-opp="ARIZ">If <b>USU</b> wins: <span class="elim">elim 8</span> <span class="wp" data-wpteam="USU">WP —</span></span>
 </div>
 <div class="entryGrid">
 <div class="name">DanSal</div>
@@ -202,13 +211,17 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 </div></div>
 <div class="card" data-team="FLA" data-opp="IOWA">
 <div class="cardTitle"><span class="day4">DAY4</span> <span class="favTeam">FLA</span> vs IOWA</div>
-<div class="cardMeta">7:10 PM • <span class="liveLine" data-live="1">—</span> • alive avail 129 (97.7%)</div>
+<div class="cardMeta">7:10 PM • <span class="liveLine" data-live="1">—</span> • alive avail 108 (81.8%)</div>
 <div class="cardRow">
 <span class="ml" style="background:rgb(165,185,255)">ML -600</span>
 <span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">Implied 85.7%</span>
-<span class="badge" style="background:rgba(34,197,94,.14); color:#bbf7d0; border:1px solid rgba(34,197,94,.30)">COMMON</span>
-<span class="pct" style="background:rgb(79,252,70)">97.7%</span>
-<span class="score" style="background:rgba(103,196,68,.18)">Score 85.9</span>
+<span class="badge" style="background:rgba(147,197,253,.14); color:#bfdbfe; border:1px solid rgba(147,197,253,.30)">MID</span>
+<span class="pct" style="background:rgb(180,228,70)">81.8%</span>
+<span class="score" style="background:rgba(97,201,68,.18)">Score 87.5</span>
+</div>
+<div class="cardRow" style="margin-top:8px">
+<span class="outcomePill" data-outcome="FLA" data-opp="IOWA">If <b>FLA</b> wins: <span class="elim">elim 0</span> <span class="wp" data-wpteam="FLA">WP —</span></span>
+<span class="outcomePill" data-outcome="IOWA" data-opp="FLA">If <b>IOWA</b> wins: <span class="elim">elim 21</span> <span class="wp" data-wpteam="IOWA">WP —</span></span>
 </div>
 <div class="entryGrid">
 <div class="name">DanSal</div>
@@ -216,21 +229,25 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <div class="name">jdg321</div>
 <div class="name">jdg3212</div>
 <div class="name">SEGAL</div>
+<div class="val"><span class="avail no">NO</span></div>
 <div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail no">NO</span></div>
 <div class="val"><span class="avail yes">YES</span></div>
-<div class="val"><span class="avail yes">YES</span></div>
-<div class="val"><span class="avail yes">YES</span></div>
-<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail no">NO</span></div>
 </div></div>
 <div class="card" data-team="PUR" data-opp="MIA">
 <div class="cardTitle"><span class="day4">DAY4</span> <span class="favTeam">PUR</span> vs MIA</div>
-<div class="cardMeta">12:10 PM • <span class="liveLine" data-live="1">—</span> • alive avail 111 (84.1%)</div>
+<div class="cardMeta">12:10 PM • <span class="liveLine" data-live="1">—</span> • alive avail 86 (65.2%)</div>
 <div class="cardRow">
 <span class="ml" style="background:rgb(212,221,255)">ML -325</span>
 <span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">Implied 76.5%</span>
-<span class="badge" style="background:rgba(147,197,253,.14); color:#bfdbfe; border:1px solid rgba(147,197,253,.30)">MID</span>
-<span class="pct" style="background:rgb(166,231,70)">84.1%</span>
-<span class="score" style="background:rgba(133,168,68,.18)">Score 78.1</span>
+<span class="badge" style="background:rgba(251,191,36,.18); color:#fde68a; border:1px solid rgba(251,191,36,.35)">SCARCE</span>
+<span class="pct" style="background:rgb(255,195,70)">65.2%</span>
+<span class="score" style="background:rgba(126,175,68,.18)">Score 80.0</span>
+</div>
+<div class="cardRow" style="margin-top:8px">
+<span class="outcomePill" data-outcome="PUR" data-opp="MIA">If <b>PUR</b> wins: <span class="elim">elim 0</span> <span class="wp" data-wpteam="PUR">WP —</span></span>
+<span class="outcomePill" data-outcome="MIA" data-opp="PUR">If <b>MIA</b> wins: <span class="elim">elim 25</span> <span class="wp" data-wpteam="MIA">WP —</span></span>
 </div>
 <div class="entryGrid">
 <div class="name">DanSal</div>
@@ -239,20 +256,24 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <div class="name">jdg3212</div>
 <div class="name">SEGAL</div>
 <div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail no">NO</span></div>
 <div class="val"><span class="avail yes">YES</span></div>
-<div class="val"><span class="avail yes">YES</span></div>
-<div class="val"><span class="avail yes">YES</span></div>
+<div class="val"><span class="avail no">NO</span></div>
 <div class="val"><span class="avail no">NO</span></div>
 </div></div>
 <div class="card" data-team="ISU" data-opp="UK">
 <div class="cardTitle"><span class="day4">DAY4</span> <span class="favTeam">ISU</span> vs UK</div>
-<div class="cardMeta">2:45 PM • <span class="liveLine" data-live="1">—</span> • alive avail 119 (90.2%)</div>
+<div class="cardMeta">2:45 PM • <span class="liveLine" data-live="1">—</span> • alive avail 103 (78.0%)</div>
 <div class="cardRow">
 <span class="ml" style="background:rgb(230,235,255)">ML -218</span>
 <span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">Implied 68.6%</span>
-<span class="badge" style="background:rgba(34,197,94,.14); color:#bbf7d0; border:1px solid rgba(34,197,94,.30)">COMMON</span>
-<span class="pct" style="background:rgb(127,240,70)">90.2%</span>
-<span class="score" style="background:rgba(165,137,68,.18)">Score 69.5</span>
+<span class="badge" style="background:rgba(147,197,253,.14); color:#bfdbfe; border:1px solid rgba(147,197,253,.30)">MID</span>
+<span class="pct" style="background:rgb(204,222,70)">78.0%</span>
+<span class="score" style="background:rgba(161,142,68,.18)">Score 70.8</span>
+</div>
+<div class="cardRow" style="margin-top:8px">
+<span class="outcomePill" data-outcome="ISU" data-opp="UK">If <b>ISU</b> wins: <span class="elim">elim 0</span> <span class="wp" data-wpteam="ISU">WP —</span></span>
+<span class="outcomePill" data-outcome="UK" data-opp="ISU">If <b>UK</b> wins: <span class="elim">elim 16</span> <span class="wp" data-wpteam="UK">WP —</span></span>
 </div>
 <div class="entryGrid">
 <div class="name">DanSal</div>
@@ -268,13 +289,17 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 </div></div>
 <div class="card" data-team="CONN" data-opp="UCLA">
 <div class="cardTitle"><span class="day4">DAY4</span> <span class="favTeam">CONN</span> vs UCLA</div>
-<div class="cardMeta">8:45 PM • <span class="liveLine" data-live="1">—</span> • alive avail 110 (83.3%)</div>
+<div class="cardMeta">8:45 PM • <span class="liveLine" data-live="1">—</span> • alive avail 86 (65.2%)</div>
 <div class="cardRow">
 <span class="ml" style="background:rgb(236,239,255)">ML -185</span>
 <span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">Implied 64.9%</span>
-<span class="badge" style="background:rgba(147,197,253,.14); color:#bfdbfe; border:1px solid rgba(147,197,253,.30)">MID</span>
-<span class="pct" style="background:rgb(171,230,70)">83.3%</span>
-<span class="score" style="background:rgba(176,127,68,.18)">Score 66.6</span>
+<span class="badge" style="background:rgba(251,191,36,.18); color:#fde68a; border:1px solid rgba(251,191,36,.35)">SCARCE</span>
+<span class="pct" style="background:rgb(255,195,70)">65.2%</span>
+<span class="score" style="background:rgba(169,133,68,.18)">Score 68.4</span>
+</div>
+<div class="cardRow" style="margin-top:8px">
+<span class="outcomePill" data-outcome="CONN" data-opp="UCLA">If <b>CONN</b> wins: <span class="elim">elim 0</span> <span class="wp" data-wpteam="CONN">WP —</span></span>
+<span class="outcomePill" data-outcome="UCLA" data-opp="CONN">If <b>UCLA</b> wins: <span class="elim">elim 24</span> <span class="wp" data-wpteam="UCLA">WP —</span></span>
 </div>
 <div class="entryGrid">
 <div class="name">DanSal</div>
@@ -290,13 +315,17 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 </div></div>
 <div class="card" data-team="SJU" data-opp="KU">
 <div class="cardTitle"><span class="day4">DAY4</span> <span class="favTeam">SJU</span> vs KU</div>
-<div class="cardMeta">5:15 PM • <span class="liveLine" data-live="1">—</span> • alive avail 113 (85.6%)</div>
+<div class="cardMeta">5:15 PM • <span class="liveLine" data-live="1">—</span> • alive avail 91 (68.9%)</div>
 <div class="cardRow">
 <span class="ml" style="background:rgb(239,242,255)">ML -162</span>
 <span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">Implied 61.8%</span>
-<span class="badge" style="background:rgba(147,197,253,.14); color:#bfdbfe; border:1px solid rgba(147,197,253,.30)">MID</span>
-<span class="pct" style="background:rgb(156,233,70)">85.6%</span>
-<span class="score" style="background:rgba(189,115,68,.18)">Score 63.3</span>
+<span class="badge" style="background:rgba(251,191,36,.18); color:#fde68a; border:1px solid rgba(251,191,36,.35)">SCARCE</span>
+<span class="pct" style="background:rgb(255,207,70)">68.9%</span>
+<span class="score" style="background:rgba(183,121,68,.18)">Score 64.9</span>
+</div>
+<div class="cardRow" style="margin-top:8px">
+<span class="outcomePill" data-outcome="SJU" data-opp="KU">If <b>SJU</b> wins: <span class="elim">elim 0</span> <span class="wp" data-wpteam="SJU">WP —</span></span>
+<span class="outcomePill" data-outcome="KU" data-opp="SJU">If <b>KU</b> wins: <span class="elim">elim 22</span> <span class="wp" data-wpteam="KU">WP —</span></span>
 </div>
 <div class="entryGrid">
 <div class="name">DanSal</div>
@@ -312,13 +341,17 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 </div></div>
 <div class="card" data-team="TENN" data-opp="UVA">
 <div class="cardTitle"><span class="day4">DAY4</span> <span class="favTeam">TENN</span> vs UVA</div>
-<div class="cardMeta">6:10 PM • <span class="liveLine" data-live="1">—</span> • alive avail 117 (88.6%)</div>
+<div class="cardMeta">6:10 PM • <span class="liveLine" data-live="1">—</span> • alive avail 112 (84.8%)</div>
 <div class="cardRow">
 <span class="ml" style="background:rgb(247,248,255)">ML -118</span>
 <span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">Implied 54.1%</span>
 <span class="badge" style="background:rgba(147,197,253,.14); color:#bfdbfe; border:1px solid rgba(147,197,253,.30)">MID</span>
-<span class="pct" style="background:rgb(137,238,70)">88.6%</span>
-<span class="score" style="background:rgba(219,87,68,.18)">Score 55.3</span>
+<span class="pct" style="background:rgb(161,232,70)">84.8%</span>
+<span class="score" style="background:rgba(218,88,68,.18)">Score 55.6</span>
+</div>
+<div class="cardRow" style="margin-top:8px">
+<span class="outcomePill" data-outcome="TENN" data-opp="UVA">If <b>TENN</b> wins: <span class="elim">elim 1</span> <span class="wp" data-wpteam="TENN">WP —</span></span>
+<span class="outcomePill" data-outcome="UVA" data-opp="TENN">If <b>UVA</b> wins: <span class="elim">elim 5</span> <span class="wp" data-wpteam="UVA">WP —</span></span>
 </div>
 <div class="entryGrid">
 <div class="name">DanSal</div>
@@ -334,13 +367,17 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 </div></div>
 <div class="card" data-team="ALA" data-opp="TTU">
 <div class="cardTitle"><span class="day4">DAY4</span> <span class="favTeam">ALA</span> vs TTU</div>
-<div class="cardMeta">9:45 PM • <span class="liveLine" data-live="1">—</span> • alive avail 103 (78.0%)</div>
+<div class="cardMeta">9:45 PM • <span class="liveLine" data-live="1">—</span> • alive avail 100 (75.8%)</div>
 <div class="cardRow">
 <span class="ml" style="background:rgb(248,248,255)">ML -112</span>
 <span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">Implied 52.8%</span>
 <span class="badge" style="background:rgba(147,197,253,.14); color:#bfdbfe; border:1px solid rgba(147,197,253,.30)">MID</span>
-<span class="pct" style="background:rgb(204,222,70)">78.0%</span>
-<span class="score" style="background:rgba(220,86,68,.18)">Score 55.0</span>
+<span class="pct" style="background:rgb(219,219,70)">75.8%</span>
+<span class="score" style="background:rgba(219,87,68,.18)">Score 55.3</span>
+</div>
+<div class="cardRow" style="margin-top:8px">
+<span class="outcomePill" data-outcome="ALA" data-opp="TTU">If <b>ALA</b> wins: <span class="elim">elim 4</span> <span class="wp" data-wpteam="ALA">WP —</span></span>
+<span class="outcomePill" data-outcome="TTU" data-opp="ALA">If <b>TTU</b> wins: <span class="elim">elim 3</span> <span class="wp" data-wpteam="TTU">WP —</span></span>
 </div>
 <div class="entryGrid">
 <div class="name">DanSal</div>
@@ -372,10 +409,10 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <td><span class="liveLine" data-live="1">—</span></td>
 <td><span class="ml" style="background:rgb(131,159,255)">-800</span></td>
 <td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">88.9%</span></td>
-<td><span class="score" style="background:rgba(92,207,68,.18)">89.0</span></td>
+<td><span class="score" style="background:rgba(89,209,68,.18)">89.6</span></td>
 <td><span class="badge" style="background:rgba(34,197,94,.14); color:#bbf7d0; border:1px solid rgba(34,197,94,.30)">COMMON</span></td>
-<td><span class="pct" style="background:rgb(75,253,70)">98.5%</span></td>
-<td><span class="count">130</span></td>
+<td><span class="pct" style="background:rgb(113,244,70)">92.4%</span></td>
+<td><span class="count">122</span></td>
 <td style="text-align:center"><span class="avail yes">YES</span></td>
 <td style="text-align:center"><span class="avail yes">YES</span></td>
 <td style="text-align:center"><span class="avail yes">YES</span></td>
@@ -390,15 +427,15 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <td><span class="liveLine" data-live="1">—</span></td>
 <td><span class="ml" style="background:rgb(165,185,255)">-600</span></td>
 <td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">85.7%</span></td>
-<td><span class="score" style="background:rgba(103,196,68,.18)">85.9</span></td>
-<td><span class="badge" style="background:rgba(34,197,94,.14); color:#bbf7d0; border:1px solid rgba(34,197,94,.30)">COMMON</span></td>
-<td><span class="pct" style="background:rgb(79,252,70)">97.7%</span></td>
-<td><span class="count">129</span></td>
+<td><span class="score" style="background:rgba(97,201,68,.18)">87.5</span></td>
+<td><span class="badge" style="background:rgba(147,197,253,.14); color:#bfdbfe; border:1px solid rgba(147,197,253,.30)">MID</span></td>
+<td><span class="pct" style="background:rgb(180,228,70)">81.8%</span></td>
+<td><span class="count">108</span></td>
+<td style="text-align:center"><span class="avail no">NO</span></td>
 <td style="text-align:center"><span class="avail yes">YES</span></td>
+<td style="text-align:center"><span class="avail no">NO</span></td>
 <td style="text-align:center"><span class="avail yes">YES</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
+<td style="text-align:center"><span class="avail no">NO</span></td>
 </tr>
 <tr data-team="PUR" data-opp="MIA">
 <td class="sticky day4">DAY4</td>
@@ -408,14 +445,14 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <td><span class="liveLine" data-live="1">—</span></td>
 <td><span class="ml" style="background:rgb(212,221,255)">-325</span></td>
 <td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">76.5%</span></td>
-<td><span class="score" style="background:rgba(133,168,68,.18)">78.1</span></td>
-<td><span class="badge" style="background:rgba(147,197,253,.14); color:#bfdbfe; border:1px solid rgba(147,197,253,.30)">MID</span></td>
-<td><span class="pct" style="background:rgb(166,231,70)">84.1%</span></td>
-<td><span class="count">111</span></td>
+<td><span class="score" style="background:rgba(126,175,68,.18)">80.0</span></td>
+<td><span class="badge" style="background:rgba(251,191,36,.18); color:#fde68a; border:1px solid rgba(251,191,36,.35)">SCARCE</span></td>
+<td><span class="pct" style="background:rgb(255,195,70)">65.2%</span></td>
+<td><span class="count">86</span></td>
 <td style="text-align:center"><span class="avail yes">YES</span></td>
+<td style="text-align:center"><span class="avail no">NO</span></td>
 <td style="text-align:center"><span class="avail yes">YES</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
-<td style="text-align:center"><span class="avail yes">YES</span></td>
+<td style="text-align:center"><span class="avail no">NO</span></td>
 <td style="text-align:center"><span class="avail no">NO</span></td>
 </tr>
 <tr data-team="ISU" data-opp="UK">
@@ -426,10 +463,10 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <td><span class="liveLine" data-live="1">—</span></td>
 <td><span class="ml" style="background:rgb(230,235,255)">-218</span></td>
 <td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">68.6%</span></td>
-<td><span class="score" style="background:rgba(165,137,68,.18)">69.5</span></td>
-<td><span class="badge" style="background:rgba(34,197,94,.14); color:#bbf7d0; border:1px solid rgba(34,197,94,.30)">COMMON</span></td>
-<td><span class="pct" style="background:rgb(127,240,70)">90.2%</span></td>
-<td><span class="count">119</span></td>
+<td><span class="score" style="background:rgba(161,142,68,.18)">70.8</span></td>
+<td><span class="badge" style="background:rgba(147,197,253,.14); color:#bfdbfe; border:1px solid rgba(147,197,253,.30)">MID</span></td>
+<td><span class="pct" style="background:rgb(204,222,70)">78.0%</span></td>
+<td><span class="count">103</span></td>
 <td style="text-align:center"><span class="avail yes">YES</span></td>
 <td style="text-align:center"><span class="avail yes">YES</span></td>
 <td style="text-align:center"><span class="avail yes">YES</span></td>
@@ -444,10 +481,10 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <td><span class="liveLine" data-live="1">—</span></td>
 <td><span class="ml" style="background:rgb(236,239,255)">-185</span></td>
 <td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">64.9%</span></td>
-<td><span class="score" style="background:rgba(176,127,68,.18)">66.6</span></td>
-<td><span class="badge" style="background:rgba(147,197,253,.14); color:#bfdbfe; border:1px solid rgba(147,197,253,.30)">MID</span></td>
-<td><span class="pct" style="background:rgb(171,230,70)">83.3%</span></td>
-<td><span class="count">110</span></td>
+<td><span class="score" style="background:rgba(169,133,68,.18)">68.4</span></td>
+<td><span class="badge" style="background:rgba(251,191,36,.18); color:#fde68a; border:1px solid rgba(251,191,36,.35)">SCARCE</span></td>
+<td><span class="pct" style="background:rgb(255,195,70)">65.2%</span></td>
+<td><span class="count">86</span></td>
 <td style="text-align:center"><span class="avail no">NO</span></td>
 <td style="text-align:center"><span class="avail no">NO</span></td>
 <td style="text-align:center"><span class="avail no">NO</span></td>
@@ -462,10 +499,10 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <td><span class="liveLine" data-live="1">—</span></td>
 <td><span class="ml" style="background:rgb(239,242,255)">-162</span></td>
 <td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">61.8%</span></td>
-<td><span class="score" style="background:rgba(189,115,68,.18)">63.3</span></td>
-<td><span class="badge" style="background:rgba(147,197,253,.14); color:#bfdbfe; border:1px solid rgba(147,197,253,.30)">MID</span></td>
-<td><span class="pct" style="background:rgb(156,233,70)">85.6%</span></td>
-<td><span class="count">113</span></td>
+<td><span class="score" style="background:rgba(183,121,68,.18)">64.9</span></td>
+<td><span class="badge" style="background:rgba(251,191,36,.18); color:#fde68a; border:1px solid rgba(251,191,36,.35)">SCARCE</span></td>
+<td><span class="pct" style="background:rgb(255,207,70)">68.9%</span></td>
+<td><span class="count">91</span></td>
 <td style="text-align:center"><span class="avail yes">YES</span></td>
 <td style="text-align:center"><span class="avail yes">YES</span></td>
 <td style="text-align:center"><span class="avail yes">YES</span></td>
@@ -480,10 +517,10 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <td><span class="liveLine" data-live="1">—</span></td>
 <td><span class="ml" style="background:rgb(247,248,255)">-118</span></td>
 <td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">54.1%</span></td>
-<td><span class="score" style="background:rgba(219,87,68,.18)">55.3</span></td>
+<td><span class="score" style="background:rgba(218,88,68,.18)">55.6</span></td>
 <td><span class="badge" style="background:rgba(147,197,253,.14); color:#bfdbfe; border:1px solid rgba(147,197,253,.30)">MID</span></td>
-<td><span class="pct" style="background:rgb(137,238,70)">88.6%</span></td>
-<td><span class="count">117</span></td>
+<td><span class="pct" style="background:rgb(161,232,70)">84.8%</span></td>
+<td><span class="count">112</span></td>
 <td style="text-align:center"><span class="avail yes">YES</span></td>
 <td style="text-align:center"><span class="avail yes">YES</span></td>
 <td style="text-align:center"><span class="avail yes">YES</span></td>
@@ -498,10 +535,10 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <td><span class="liveLine" data-live="1">—</span></td>
 <td><span class="ml" style="background:rgb(248,248,255)">-112</span></td>
 <td><span class="badge" style="background:rgba(255,255,255,.05); color:var(--text)">52.8%</span></td>
-<td><span class="score" style="background:rgba(220,86,68,.18)">55.0</span></td>
+<td><span class="score" style="background:rgba(219,87,68,.18)">55.3</span></td>
 <td><span class="badge" style="background:rgba(147,197,253,.14); color:#bfdbfe; border:1px solid rgba(147,197,253,.30)">MID</span></td>
-<td><span class="pct" style="background:rgb(204,222,70)">78.0%</span></td>
-<td><span class="count">103</span></td>
+<td><span class="pct" style="background:rgb(219,219,70)">75.8%</span></td>
+<td><span class="count">100</span></td>
 <td style="text-align:center"><span class="avail yes">YES</span></td>
 <td style="text-align:center"><span class="avail yes">YES</span></td>
 <td style="text-align:center"><span class="avail yes">YES</span></td>
@@ -516,15 +553,15 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <div class="poolWrap"><table class="poolTable" id="poolTable"><thead><tr>
 <th>Team</th><th>Picks left</th><th>Alive avail</th>
 </tr></thead><tbody id="poolTbody">
-<tr class="playingToday" data-alivepct="78.03030303030303">
+<tr class="playingToday" data-alivepct="75.75757575757575">
 <td><span class="teamName">ALA</span><span class="todayTag">TODAY</span></td>
 <td><span class="leftPill full">5/5</span></td>
-<td><span class="count">103</span> <span class="pct" style="background:rgb(204,222,70)">78.0%</span></td>
+<td><span class="count">100</span> <span class="pct" style="background:rgb(219,219,70)">75.8%</span></td>
 </tr>
-<tr class="playingToday" data-alivepct="98.48484848484848">
+<tr class="playingToday" data-alivepct="92.42424242424242">
 <td><span class="teamName">ARIZ</span><span class="todayTag">TODAY</span></td>
 <td><span class="leftPill full">5/5</span></td>
-<td><span class="count">130</span> <span class="pct" style="background:rgb(75,253,70)">98.5%</span></td>
+<td><span class="count">122</span> <span class="pct" style="background:rgb(113,244,70)">92.4%</span></td>
 </tr>
 <tr class="" data-alivepct="25">
 <td><span class="teamName">ARK</span></td>
@@ -536,10 +573,10 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <td><span class="leftPill ">4/5</span></td>
 <td><span class="count">121</span> <span class="pct" style="background:rgb(118,243,70)">91.7%</span></td>
 </tr>
-<tr class="playingToday" data-alivepct="97.72727272727273">
+<tr class="playingToday" data-alivepct="81.81818181818183">
 <td><span class="teamName">FLA</span><span class="todayTag">TODAY</span></td>
-<td><span class="leftPill full">5/5</span></td>
-<td><span class="count">129</span> <span class="pct" style="background:rgb(79,252,70)">97.7%</span></td>
+<td><span class="leftPill ">2/5</span></td>
+<td><span class="count">108</span> <span class="pct" style="background:rgb(180,228,70)">81.8%</span></td>
 </tr>
 <tr class="" data-alivepct="78.78787878787878">
 <td><span class="teamName">HOU</span></td>
@@ -561,10 +598,10 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <td><span class="leftPill full">5/5</span></td>
 <td><span class="count">131</span> <span class="pct" style="background:rgb(70,254,70)">99.2%</span></td>
 </tr>
-<tr class="playingToday" data-alivepct="90.15151515151516">
+<tr class="playingToday" data-alivepct="78.03030303030303">
 <td><span class="teamName">ISU</span><span class="todayTag">TODAY</span></td>
 <td><span class="leftPill full">5/5</span></td>
-<td><span class="count">119</span> <span class="pct" style="background:rgb(127,240,70)">90.2%</span></td>
+<td><span class="count">103</span> <span class="pct" style="background:rgb(204,222,70)">78.0%</span></td>
 </tr>
 <tr class="playingToday" data-alivepct="54.54545454545454">
 <td><span class="teamName">KU</span><span class="todayTag">TODAY</span></td>
@@ -596,15 +633,15 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <td><span class="leftPill full">5/5</span></td>
 <td><span class="count">87</span> <span class="pct" style="background:rgb(255,198,70)">65.9%</span></td>
 </tr>
-<tr class="playingToday" data-alivepct="84.0909090909091">
+<tr class="playingToday" data-alivepct="65.15151515151516">
 <td><span class="teamName">PUR</span><span class="todayTag">TODAY</span></td>
-<td><span class="leftPill ">4/5</span></td>
-<td><span class="count">111</span> <span class="pct" style="background:rgb(166,231,70)">84.1%</span></td>
+<td><span class="leftPill ">2/5</span></td>
+<td><span class="count">86</span> <span class="pct" style="background:rgb(255,195,70)">65.2%</span></td>
 </tr>
-<tr class="playingToday" data-alivepct="85.60606060606061">
+<tr class="playingToday" data-alivepct="68.93939393939394">
 <td><span class="teamName">SJU</span><span class="todayTag">TODAY</span></td>
 <td><span class="leftPill full">5/5</span></td>
-<td><span class="count">113</span> <span class="pct" style="background:rgb(156,233,70)">85.6%</span></td>
+<td><span class="count">91</span> <span class="pct" style="background:rgb(255,207,70)">68.9%</span></td>
 </tr>
 <tr class="" data-alivepct="100">
 <td><span class="teamName">SLU</span></td>
@@ -621,20 +658,20 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <td><span class="leftPill full">5/5</span></td>
 <td><span class="count">131</span> <span class="pct" style="background:rgb(70,254,70)">99.2%</span></td>
 </tr>
-<tr class="playingToday" data-alivepct="88.63636363636364">
+<tr class="playingToday" data-alivepct="84.84848484848484">
 <td><span class="teamName">TENN</span><span class="todayTag">TODAY</span></td>
 <td><span class="leftPill full">5/5</span></td>
-<td><span class="count">117</span> <span class="pct" style="background:rgb(137,238,70)">88.6%</span></td>
+<td><span class="count">112</span> <span class="pct" style="background:rgb(161,232,70)">84.8%</span></td>
 </tr>
 <tr class="" data-alivepct="100">
 <td><span class="teamName">TEX</span></td>
 <td><span class="leftPill full">5/5</span></td>
 <td><span class="count">132</span> <span class="pct" style="background:rgb(65,255,70)">100.0%</span></td>
 </tr>
-<tr class="playingToday" data-alivepct="94.6969696969697">
+<tr class="playingToday" data-alivepct="91.66666666666666">
 <td><span class="teamName">TTU</span><span class="todayTag">TODAY</span></td>
 <td><span class="leftPill full">5/5</span></td>
-<td><span class="count">125</span> <span class="pct" style="background:rgb(99,247,70)">94.7%</span></td>
+<td><span class="count">121</span> <span class="pct" style="background:rgb(118,243,70)">91.7%</span></td>
 </tr>
 <tr class="playingToday" data-alivepct="93.18181818181817">
 <td><span class="teamName">UCLA</span><span class="todayTag">TODAY</span></td>
@@ -651,10 +688,10 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 <td><span class="leftPill full">5/5</span></td>
 <td><span class="count">132</span> <span class="pct" style="background:rgb(65,255,70)">100.0%</span></td>
 </tr>
-<tr class="playingToday" data-alivepct="55.3030303030303">
+<tr class="playingToday" data-alivepct="54.54545454545454">
 <td><span class="teamName">UVA</span><span class="todayTag">TODAY</span></td>
 <td><span class="leftPill ">1/5</span></td>
-<td><span class="count">73</span> <span class="pct" style="background:rgb(255,166,70)">55.3%</span></td>
+<td><span class="count">72</span> <span class="pct" style="background:rgb(255,164,70)">54.5%</span></td>
 </tr>
 <tr class="" data-alivepct="78.78787878787878">
 <td><span class="teamName">VAN</span></td>
@@ -943,8 +980,8 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
     const now = Date.now();
     const hit = summaryCache.get(eventId);
     if(hit && (now - hit.t) < 20000) return hit.v; // 20s TTL
-    const url = 'https://site.web.api.espn.com/apis/v2/sports/basketball/mens-college-basketball/summary?event=' + encodeURIComponent(eventId);
-  // NOTE: summary endpoint remains on site.web.api.espn.com (works as of now)
+    // NOTE: site.web.api.espn.com started returning 404s for some events; site.api.espn.com works and has CORS headers.
+    const url = 'https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary?event=' + encodeURIComponent(eventId);
     const res = await fetch(url, { cache: 'no-store' });
     if(!res.ok) throw new Error('ESPN summary failed ' + res.status);
     const v = await res.json();
@@ -1034,11 +1071,12 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
       if(j1.status==='fulfilled' && Array.isArray(j1.value.events)) events.push(...j1.value.events);
       if(j2.status==='fulfilled' && Array.isArray(j2.value.events)) events.push(...j2.value.events);
 
-      async function updateOne(team, opp, target){
+      async function updateOne(team, opp, target, container){
         const hit = findEvent(events, team, opp);
         if(!hit){ target.textContent = '—'; target.classList.remove('live','final'); return; }
 
         let wpForTeam = null;
+        let wpMap = null; // normAbbr -> [0,1]
         try {
           const id = hit.event && (hit.event.id || hit.event.uid);
           if(id){
@@ -1051,6 +1089,10 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
               const home = competitors.find(x=>x.homeAway==='home') || competitors[1];
               const aAb = normAbbr((away.team && away.team.abbreviation) || '');
               const hAb = normAbbr((home.team && home.team.abbreviation) || '');
+              wpMap = {};
+              wpMap[hAb] = wp.home;
+              wpMap[aAb] = wp.away;
+
               const T = normAbbr(team);
               if(T === hAb) wpForTeam = wp.home;
               else if(T === aAb) wpForTeam = wp.away;
@@ -1058,6 +1100,23 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
           }
         } catch(e) {
           // no win prob; keep score only
+        }
+
+        // Update any in-card win-probability pills (mobile)
+        if(container && wpMap){
+          // Update labels
+          container.querySelectorAll && container.querySelectorAll('[data-wpteam]').forEach(el=>{
+            const t = normAbbr(el.getAttribute('data-wpteam'));
+            const v = wpMap[t];
+            if(typeof v === 'number' && isFinite(v)) el.textContent = 'WP ' + Math.round(v*100) + '%';
+          });
+          // Highlight the side with >50% WP
+          container.querySelectorAll && container.querySelectorAll('.outcomePill[data-outcome]').forEach(pill=>{
+            const t = normAbbr(pill.getAttribute('data-outcome'));
+            const v = wpMap[t];
+            pill.classList.toggle('wpFav', typeof v==='number' && isFinite(v) && v > 0.5);
+            pill.classList.toggle('wpDog', typeof v==='number' && isFinite(v) && v < 0.5);
+          });
         }
 
         const out = formatLine(hit.event, wpForTeam);
@@ -1073,7 +1132,7 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
         const opp = tr.getAttribute('data-opp');
         const target = tr.querySelector('.liveLine[data-live="1"]');
         if(!target) return;
-        tableUpdates.push(updateOne(team, opp, target));
+        tableUpdates.push(updateOne(team, opp, target, tr));
       });
 
       // Update cards
@@ -1083,7 +1142,7 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
         const opp = card.getAttribute('data-opp');
         const target = card.querySelector('.liveLine[data-live="1"]');
         if(!target) return;
-        cardUpdates.push(updateOne(team, opp, target));
+        cardUpdates.push(updateOne(team, opp, target, card));
       });
 
       await Promise.allSettled(tableUpdates.concat(cardUpdates));
