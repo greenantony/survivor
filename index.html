@@ -24,9 +24,23 @@ h1 { font-size: 18px; margin: 0 0 6px; }
 .smallNote { font-size: 12px; color: var(--muted); line-height:1.35; }
 
 .poolWrap { overflow:auto; -webkit-overflow-scrolling: touch; border-radius: 12px; border:1px solid var(--grid); background: var(--panel); }
-.poolTable { width: 100%; border-collapse: collapse; min-width: 720px; }
-.poolTable th, .poolTable td { border-bottom:1px solid var(--grid); padding: 9px 10px; font-size: 13px; white-space: nowrap; }
+.poolTable { width: 100%; border-collapse: collapse; min-width: 680px; }
+.poolTable th, .poolTable td { border-bottom:1px solid var(--grid); padding: 7px 8px; font-size: 13px; white-space: nowrap; }
 .poolTable th { background: rgba(17,24,39,.96); position: sticky; top: 0; z-index: 2; text-align:left; }
+.poolTable th:nth-child(1), .poolTable td:nth-child(1){ max-width: 140px; }
+.poolTable th:nth-child(2), .poolTable td:nth-child(2){ width: 110px; }
+.poolTable th:nth-child(3), .poolTable td:nth-child(3){ width: 120px; }
+.poolTable th:nth-child(4), .poolTable td:nth-child(4){ width: 115px; }
+
+@media (max-width: 520px){
+  .poolTable { min-width: 620px; }
+  .poolTable th, .poolTable td { padding: 6px 7px; font-size: 12px; }
+  .poolTable th:nth-child(1), .poolTable td:nth-child(1){ max-width: 120px; }
+  .poolTable th:nth-child(2), .poolTable td:nth-child(2){ width: 96px; }
+  .poolTable th:nth-child(3), .poolTable td:nth-child(3){ width: 108px; }
+  .poolTable th:nth-child(4), .poolTable td:nth-child(4){ width: 100px; }
+}
+
 .teamName { font-weight: 950; }
 .teamName.elim { color: rgba(229,231,235,.45); text-decoration: line-through; text-decoration-thickness: 2px; }
 
@@ -91,7 +105,8 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
 .cards { display:flex; flex-direction: column; gap: 10px; }
 .card { border:1px solid var(--grid); border-radius: 14px; background: var(--panel); padding: 12px; }
 .cardTitle { font-size: 15px; font-weight: 900; }
-.cardMeta { font-size: 12px; color: var(--muted); }
+.cardMeta { font-size: 12px; color: var(--muted); display:flex; flex-wrap:wrap; gap:6px; align-items:center; line-height:1.25; }
+.cardMeta .liveLine { max-width: 100%; overflow:hidden; text-overflow: ellipsis; }
 .cardRow { display:flex; flex-wrap:wrap; gap: 8px; margin-top: 10px; align-items:center; }
 .entryGrid { display:grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 6px; margin-top: 10px; }
 .entryGrid .name { font-size: 11px; color: var(--muted); text-align:center; }
@@ -105,7 +120,7 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
   .cardSection { display:block; }
 }
 
-.liveLine { font-weight: 900; font-variant-numeric: tabular-nums; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--grid); background: rgba(255,255,255,.06); color: var(--text); }
+.liveLine { font-weight: 900; font-variant-numeric: tabular-nums; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--grid); background: rgba(255,255,255,.06); color: var(--text); display:inline-block; vertical-align:middle; }
 .liveLine.live { border-color: rgba(34,197,94,.35); background: rgba(34,197,94,.12); }
 .liveLine.final { border-color: rgba(147,197,253,.35); background: rgba(147,197,253,.12); }
 
