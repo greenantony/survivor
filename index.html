@@ -1025,20 +1025,42 @@ thead th.sticky, thead th.sticky2, thead th.sticky3 { z-index: 5; }
       const wp = summaryJson.winprobability || summaryJson.winProbability || summaryJson.winprobabilities;
       if(Array.isArray(wp) && wp.length){
         const last = wp[wp.length-1];
-        const h = last.homeWinPercentage ?? last.homewinpercentage ?? last.home ?? null;
-        const a = last.awayWinPercentage ?? last.awaywinpercentage ?? last.away ?? null;
-        if(typeof h === 'number' && typeof a === 'number'){
+        const hRaw = last.homeWinPercentage ?? last.homewinpercentage ?? last.home ?? null;
+        const aRaw = last.awayWinPercentage ?? last.awaywinpercentage ?? last.away ?? null;
+
+        // Some feeds only provide homeWinPercentage; derive away.
+        if(typeof hRaw === 'number' && (aRaw == null)){
+          const hh = hRaw > 1 ? hRaw/100 : hRaw;
+          const aa = 1 - hh;
+          if(isFinite(hh) && isFinite(aa)) return { home: hh, away: aa };
+        }
+
+        if(typeof hRaw === 'number' && typeof aRaw === 'number'){
           // Some feeds use 0-100
-          const hh = h > 1 ? h/100 : h;
-          const aa = a > 1 ? a/100 : a;
+          const hh = hRaw > 1 ? hRaw/100 : hRaw;
+          const aa = aRaw > 1 ? aRaw/100 : aRaw;
           return { home: hh, away: aa };
         }
       }
-      // Sometimes nested
+      // Sometimes nested / pregame predictor
       const drives = summaryJson?.predictor || summaryJson?.predictors;
-      if(drives && typeof drives.homeTeamWinPercentage === 'number' && typeof drives.awayTeamWinPercentage === 'number'){
-        const h = drives.homeTeamWinPercentage; const a = drives.awayTeamWinPercentage;
-        return { home: h>1?h/100:h, away: a>1?a/100:a };
+      if(drives){
+        // common shape
+        if(typeof drives.homeTeamWinPercentage === 'number' && typeof drives.awayTeamWinPercentage === 'number'){
+          const h = drives.homeTeamWinPercentage; const a = drives.awayTeamWinPercentage;
+          return { home: h>1?h/100:h, away: a>1?a/100:a };
+        }
+        // observed shape (pregame): predictor.homeTeam.gameProjection / awayTeam.gameProjection
+        if(drives.homeTeam && drives.awayTeam && typeof drives.homeTeam.gameProjection === 'string' && typeof drives.awayTeam.gameProjection === 'string'){
+          const h = parseFloat(drives.homeTeam.gameProjection);
+          const a = parseFloat(drives.awayTeam.gameProjection);
+          if(isFinite(h) && isFinite(a)) return { home: h/100, away: a/100 };
+        }
+        if(drives.homeTeam && drives.awayTeam && typeof drives.homeTeam.gameProjection === 'number' && typeof drives.awayTeam.gameProjection === 'number'){
+          const h = drives.homeTeam.gameProjection;
+          const a = drives.awayTeam.gameProjection;
+          if(isFinite(h) && isFinite(a)) return { home: h>1?h/100:h, away: a>1?a/100:a };
+        }
       }
     } catch(e) {}
     return null;
