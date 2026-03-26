@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Day 5 Survivor Summary</title>
+  <style>
+    body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:#0b0f14;color:#e5e7eb;padding:24px;line-height:1.5;max-width:1200px}
+    h1,h2,h3{margin:0 0 12px}
+    p{margin:8px 0 16px}
+    .muted{color:#9ca3af}
+    .card{background:#111827;border:1px solid rgba(255,255,255,.10);border-radius:12px;padding:16px 18px;margin:18px 0}
+    .bucket{margin-top:22px}
+    .pill{display:inline-block;padding:3px 10px;border-radius:999px;background:#1f2937;margin-right:8px;font-size:12px}
+    table{border-collapse:collapse;width:100%;margin-top:12px}
+    th,td{border:1px solid rgba(255,255,255,.12);padding:10px 12px;text-align:left;vertical-align:top}
+    th{background:#1f2937}
+    tr:nth-child(even){background:rgba(255,255,255,.02)}
+    ul{margin:8px 0 0;padding-left:20px}
+    code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:6px}
+    .aggressive{border-left:5px solid #ef4444}
+    .balanced{border-left:5px solid #f59e0b}
+    .safe{border-left:5px solid #10b981}
+  </style>
+</head>
+<body>
+  <h1>Day 5 Survivor Summary</h1>
+  <p class="muted">Corrected 500k run · 22 Day 5 branches · 22,727 sims per branch</p>
+
+  <div class="card">
+    <h2>Overall read</h2>
+    <p>The corrected 500k run, using normalized team-name mapping from <code>probabilities.csv</code>, prefers contrarian Day 5 pairs over the safer chalk combinations. The strongest modeled EV recommendation is <strong>IOWA + ARK</strong>, which offers lower survival but the best expected split-pot share.</p>
+    <p>After fixing the probability-name mapping, the board shifted away from a purely seed-based view and toward combinations involving <strong>IOWA, ARK, ILL, and TEX</strong>. That means the custom probabilities are materially changing the decision surface.</p>
+    <ul>
+      <li><strong>Aggressive:</strong> If optimizing purely for modeled EV, play <strong>IOWA + ARK</strong>.</li>
+      <li><strong>Compromise:</strong> If you want a steadier middle ground, play <strong>NEB + ILL</strong>.</li>
+      <li><strong>Safe:</strong> If you want the highest short-term comfort, play <strong>ARIZ + NEB</strong>.</li>
+    </ul>
+    <p><strong>Caution:</strong> Day 6 and beyond are still handled via a salvage-style continuation approximation, not a full optimal policy search. So the direction of the results is useful, but nearby branches should not be treated as mathematically exact.</p>
+  </div>
+
+  <div class="card bucket aggressive">
+    <h2>Aggressive / max-EV</h2>
+    <p><span class="pill">Higher EV</span><span class="pill">Lower survival</span><span class="pill">More contrarian</span></p>
+    <table>
+      <thead>
+        <tr><th>Rank</th><th>AdnyB</th><th>jdg3212</th><th>EV share</th><th>Survive Day 5</th><th>Survive Day 6</th><th>Style</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>IOWA</td><td>ARK</td><td>0.231%</td><td>58.70%</td><td>44.36%</td><td>leans contrarian overall</td></tr>
+        <tr><td>2</td><td>IOWA</td><td>ILL</td><td>0.198%</td><td>67.94%</td><td>52.18%</td><td>leans contrarian overall</td></tr>
+        <tr><td>3</td><td>NEB</td><td>ARK</td><td>0.183%</td><td>65.42%</td><td>49.24%</td><td>mixes chalk and leverage</td></tr>
+      </tbody>
+    </table>
+    <p>The highest-EV branches are clearly more contrarian than the safer alternatives. They preserve future value and appear to gain leverage from lower-duplication upset paths, but they come with real same-day elimination risk.</p>
+    <p><strong>Human take:</strong> If the goal is pure modeled EV, <strong>IOWA + ARK</strong> is the headline play. If that feels too brittle, <strong>IOWA + ILL</strong> or <strong>NEB + ARK</strong> are the next-best aggressive variants.</p>
+  </div>
+
+  <div class="card bucket balanced">
+    <h2>Balanced / compromise</h2>
+    <p><span class="pill">Middle EV</span><span class="pill">Better survival</span><span class="pill">Not fully chalky</span></p>
+    <table>
+      <thead>
+        <tr><th>Rank</th><th>AdnyB</th><th>jdg3212</th><th>EV share</th><th>Survive Day 5</th><th>Survive Day 6</th><th>Style</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>6</td><td>NEB</td><td>ILL</td><td>0.170%</td><td>72.94%</td><td>55.83%</td><td>mixes chalk and leverage</td></tr>
+        <tr><td>7</td><td>NEB</td><td>TEX</td><td>0.163%</td><td>65.81%</td><td>50.21%</td><td>mixes chalk and leverage</td></tr>
+        <tr><td>9</td><td>ILL</td><td>NEB</td><td>0.146%</td><td>73.01%</td><td>55.39%</td><td>mixes chalk and leverage</td></tr>
+      </tbody>
+    </table>
+    <p>The balanced bucket gives up the top of the EV table but meaningfully improves Day 5 and Day 6 survival. These combinations still retain some leverage while avoiding the most fragile upset-heavy path.</p>
+    <p><strong>Human take:</strong> If the goal is to stay alive at a respectable rate without fully retreating into chalk, <strong>NEB + ILL</strong> is the cleanest compromise.</p>
+  </div>
+
+  <div class="card bucket safe">
+    <h2>Safer / chalkier</h2>
+    <p><span class="pill">Highest survival</span><span class="pill">Lower EV</span><span class="pill">Burns future value</span></p>
+    <table>
+      <thead>
+        <tr><th>Rank</th><th>AdnyB</th><th>jdg3212</th><th>EV share</th><th>Survive Day 5</th><th>Survive Day 6</th><th>Style</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>8</td><td>ARIZ</td><td>NEB</td><td>0.160%</td><td>87.84%</td><td>69.23%</td><td>leans chalky overall</td></tr>
+        <tr><td>10</td><td>NEB</td><td>ARIZ</td><td>0.144%</td><td>88.79%</td><td>68.59%</td><td>leans chalky overall</td></tr>
+      </tbody>
+    </table>
+    <p>The safer bucket gives the strongest near-term survival profile by leaning into more conventional favorites, but it burns stronger future teams and loses meaningful EV relative to the aggressive bucket.</p>
+    <p><strong>Human take:</strong> If the emotional priority is surviving tonight rather than maximizing modeled edge, <strong>ARIZ + NEB</strong> is the obvious comfort play. The tradeoff is that the sim does not think it is the best way to win the pool from here.</p>
+  </div>
+</body>
+</html>
